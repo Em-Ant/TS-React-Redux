@@ -10,7 +10,6 @@ import { Wrap, Buttons } from './styled';
 import { connect } from 'react-redux';
 import { deleteteItem, deleteAll } from '../../state/actions';
 
-
 const Home = ({ items, deleteItem, deleteAll }) => {
   const hasItems = !!(items && items.length);
   return (
