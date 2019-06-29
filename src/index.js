@@ -10,8 +10,6 @@ import {
 
 import { Provider } from 'react-redux';
 
-import './index.css';
-
 import Form from './containers/FormContainer';
 import Home from './containers/Home';
 

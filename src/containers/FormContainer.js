@@ -9,8 +9,6 @@ import Paper from '../components/Paper';
 
 import { addItem, editItem } from '../state/actions';
 
-import styles from './formContainer.module.css';
-
 const Container = ({ invalid, item, submit, isNewItem }) => {
   const [submitted, setSubmitted] = useState(false);
   const handleSubmit = payload => {
@@ -21,7 +19,7 @@ const Container = ({ invalid, item, submit, isNewItem }) => {
   const title = isNewItem ? 'Add Item' : 'Edit Item';
   return (
     <Paper>
-      <div className={styles.form}>
+      <div>
         <h3>{title}</h3>
         <Link to="/home">back</Link>
         <ItemForm {...item} handleSubmit={handleSubmit} />

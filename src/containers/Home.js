@@ -8,12 +8,11 @@ import Paper from '../components/Paper';
 import { connect } from 'react-redux';
 import { deleteteItem, deleteAll } from '../state/actions';
 
-import styles from './home.module.css';
 
 const Home = ({ items, deleteItem, deleteAll }) => {
   const hasItems = !!(items && items.length);
   return (
-    <div className={styles.home}>
+    <div>
       <h1>Items</h1>
       {hasItems ? (
         <ul>
@@ -22,7 +21,6 @@ const Home = ({ items, deleteItem, deleteAll }) => {
               <Paper>
                 <Link to={`/item/${index}`}>{name}</Link>
                 <button
-                  className={styles.delete}
                   onClick={() => deleteItem(index)}
                 >
                   delete
@@ -34,7 +32,7 @@ const Home = ({ items, deleteItem, deleteAll }) => {
       ) : (
         <p>Nothing here yet...</p>
       )}
-      <div className={styles.buttons}>
+      <div>
         <Link to="/item/new">Add</Link>
         {hasItems && <button onClick={deleteAll}>Clear</button>}
       </div>

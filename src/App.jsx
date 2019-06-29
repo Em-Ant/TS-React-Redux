@@ -21,13 +21,12 @@ const fakeCall = asyncAction(
   });
 
 const useFetch = () => useEffect(() => { fakeCall(); }, []);
-import styles from './app.module.css';
 
 const Hello = ({ text }) => {
   useFetch();
   const [value, onChange] = useState('');
   return (
-    <div className={styles.app}>
+    <div>
       <Bear />
       <p>{text}</p>
       <Date label="test" error="xxxxxx" value={value} onChange={onChange}/>

@@ -1,10 +1,8 @@
 import React from 'react';
 import { oneOfType, node, arrayOf } from 'prop-types';
 
-import styles from './paper.module.css';
-
 const Paper = ({ children }) => (
-  <div className={styles.paper}>
+  <div>
     {children}
   </div>
 );

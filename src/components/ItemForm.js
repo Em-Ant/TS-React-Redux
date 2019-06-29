@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { string, func } from 'prop-types';
 
-import styles from './itemForm.module.css';
 const validateForm = (name, description) => !!(name && description);
 
 const ItemForm = ({ name, description, handleSubmit }) => {
@@ -32,7 +31,7 @@ const ItemForm = ({ name, description, handleSubmit }) => {
   const isDescriptionInvalid = !_description.value && _description.touched;
   
   return (
-    <form onSubmit={onSubmit} className={styles.form}>
+    <form onSubmit={onSubmit}>
       <label htmlFor="name">Name</label>
       <input
         id="name"
@@ -40,7 +39,7 @@ const ItemForm = ({ name, description, handleSubmit }) => {
         placeholder="Item Name"
         onChange={e => setName({ value: e.target.value, touched: true })}
         value={_name.value}
-        className={isNameInvalid ? styles.invalid : null}
+        className={isNameInvalid ? 'invalid' : null}
       />
       <label htmlFor="name">Description</label>
       <textarea
@@ -48,7 +47,7 @@ const ItemForm = ({ name, description, handleSubmit }) => {
         name="description"
         placeholder={'Item description'}
         onChange={e => setDescription({ value: e.target.value, touched: true })}
-        className={isDescriptionInvalid ? styles.invalid : null}
+        className={isDescriptionInvalid ? 'invalid' : null}
         value={_description.value}
       />
       <button type="submit">Save</button>
