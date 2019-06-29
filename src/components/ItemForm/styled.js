@@ -1,37 +1,41 @@
-.form {
+import styled, { css } from 'styled-components';
+
+export const Form = styled.form`
   margin: 15px auto;
   max-width: 400px ;
   display: flex;
   flex-direction: column;
-}
+`;
 
-.form label {
+export const Label = styled.label`
   font-size: 15px;
   font-weight: bold;
-}
+`;
 
-.form input, .form textarea {
+const inputsCommon = css`
   display: block;
   flex-grow: 1;
   border-radius: 4px;
   padding: 6px;
-  border: 1px solid #bbb;
   margin: 5px 0 10px 0;
   transition: border 0.2s ease-in-out;
   box-sizing: border-box;
   font-family: Arial, Helvetica, sans-serif;
-}
+`;
 
-.form input.invalid, .form textarea.invalid {
-  border: 2px solid #ff4757;
-}
+export const Input = styled.input`
+  ${inputsCommon};
+  border: ${props => props.invalid ? '2px solid #ff4757' : '1px solid #bbb'};
+`;
 
-.form textarea {
+export const Textarea = styled.textarea`
+ ${inputsCommon};
+  border: ${props => props.invalid ? '2px solid #ff4757' : '1px solid #bbb'};
   height: 160px;
   resize: none;
-}
+`;
 
-.form button {
+export const Button = styled.button`
   border: none;
   background-color: #16a085;
   color: white;
@@ -41,8 +45,7 @@
   border-radius: 3px;
   cursor: pointer;
   transition: background-color 0.2s ease-in-out;
-}
-
-.form button:hover {
-  background-color: #1abc9c;
-} 
+  &:hover {
+    background-color: #1abc9c;
+  }
+`;

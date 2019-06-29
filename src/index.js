@@ -10,13 +10,16 @@ import {
 
 import { Provider } from 'react-redux';
 
-import Form from './containers/FormContainer';
+import Form from './containers/Form';
 import Home from './containers/Home';
 
 import store from './state';
 
+import { GlobalStyle } from './global-style';
+
 ReactDOM.render(
   <Provider store={store}>
+    <GlobalStyle />
     <Router>
       <Switch>
         <Route exact path="/home" component={Home} />

@@ -3,16 +3,18 @@ import { arrayOf, shape, string, func } from 'prop-types';
 
 import { Link } from 'react-router-dom';
 
-import Paper from '../components/Paper';
+import Paper from '../../components/Paper';
+
+import { Wrap, Buttons } from './styled';
 
 import { connect } from 'react-redux';
-import { deleteteItem, deleteAll } from '../state/actions';
+import { deleteteItem, deleteAll } from '../../state/actions';
 
 
 const Home = ({ items, deleteItem, deleteAll }) => {
   const hasItems = !!(items && items.length);
   return (
-    <div>
+    <Wrap>
       <h1>Items</h1>
       {hasItems ? (
         <ul>
@@ -32,11 +34,11 @@ const Home = ({ items, deleteItem, deleteAll }) => {
       ) : (
         <p>Nothing here yet...</p>
       )}
-      <div>
+      <Buttons>
         <Link to="/item/new">Add</Link>
         {hasItems && <button onClick={deleteAll}>Clear</button>}
-      </div>
-    </div>
+      </Buttons>
+    </Wrap>
   );
 };
 

@@ -4,10 +4,12 @@ import { connect } from 'react-redux';
 
 import { Redirect, Link } from 'react-router-dom';
 
-import ItemForm from '../components/ItemForm';
-import Paper from '../components/Paper';
+import ItemForm from '../../components/ItemForm';
+import Paper from '../../components/Paper';
 
-import { addItem, editItem } from '../state/actions';
+import { Head } from './styled';
+
+import { addItem, editItem } from '../../state/actions';
 
 const Container = ({ invalid, item, submit, isNewItem }) => {
   const [submitted, setSubmitted] = useState(false);
@@ -19,11 +21,11 @@ const Container = ({ invalid, item, submit, isNewItem }) => {
   const title = isNewItem ? 'Add Item' : 'Edit Item';
   return (
     <Paper>
-      <div>
+      <Head>
         <h3>{title}</h3>
         <Link to="/home">back</Link>
-        <ItemForm {...item} handleSubmit={handleSubmit} />
-      </div>
+      </Head>
+      <ItemForm {...item} handleSubmit={handleSubmit} />
     </Paper>
   );
 };

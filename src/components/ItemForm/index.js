@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { string, func } from 'prop-types';
 
+import { Input, Textarea, Label, Button, Form } from './styled';
+
 const validateForm = (name, description) => !!(name && description);
 
 const ItemForm = ({ name, description, handleSubmit }) => {
@@ -31,27 +33,27 @@ const ItemForm = ({ name, description, handleSubmit }) => {
   const isDescriptionInvalid = !_description.value && _description.touched;
   
   return (
-    <form onSubmit={onSubmit}>
-      <label htmlFor="name">Name</label>
-      <input
+    <Form onSubmit={onSubmit}>
+      <Label htmlFor="name">Name</Label>
+      <Input
+        invalid={isNameInvalid}
         id="name"
         name="name"
         placeholder="Item Name"
         onChange={e => setName({ value: e.target.value, touched: true })}
         value={_name.value}
-        className={isNameInvalid ? 'invalid' : null}
       />
-      <label htmlFor="name">Description</label>
-      <textarea
+      <Label htmlFor="name">Description</Label>
+      <Textarea
+        invalid={isDescriptionInvalid}
         id="description"
         name="description"
         placeholder={'Item description'}
         onChange={e => setDescription({ value: e.target.value, touched: true })}
-        className={isDescriptionInvalid ? 'invalid' : null}
         value={_description.value}
       />
-      <button type="submit">Save</button>
-    </form>
+      <Button type="submit">Save</Button>
+    </Form>
   );
 };
 
