@@ -1,0 +1,23 @@
+const isTest = String(process.env.NODE_ENV) === 'test';
+
+module.exports = {
+  presets: [
+    [
+      '@babel/preset-env',
+      {
+        modules: isTest ? 'cjs' : false
+      }
+    ],
+    '@babel/preset-react'
+  ],
+  plugins: [
+    [
+      '@babel/plugin-proposal-decorators',
+      {
+        legacy: true
+      }
+    ],
+    '@babel/plugin-proposal-class-properties',
+    '@babel/plugin-transform-runtime'
+  ]
+};

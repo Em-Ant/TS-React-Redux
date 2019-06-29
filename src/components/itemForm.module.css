@@ -1,0 +1,48 @@
+.form {
+  margin: 15px auto;
+  max-width: 400px ;
+  display: flex;
+  flex-direction: column;
+}
+
+.form label {
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.form input, .form textarea {
+  display: block;
+  flex-grow: 1;
+  border-radius: 4px;
+  padding: 6px;
+  border: 1px solid #bbb;
+  margin: 5px 0 10px 0;
+  transition: border 0.2s ease-in-out;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.form input.invalid, .form textarea.invalid {
+  border: 2px solid #ff4757;
+}
+
+.form textarea {
+  height: 160px;
+  resize: none;
+}
+
+.form button {
+  border: none;
+  background-color: #16a085;
+  color: white;
+  padding: 8px;
+  font-size: 15px;
+  font-weight: bold;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.form button:hover {
+  background-color: #1abc9c;
+} 
