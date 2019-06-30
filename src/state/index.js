@@ -1,4 +1,8 @@
-import { createStore } from 'redux';
+import { createStore , applyMiddleware, compose } from 'redux';
+import createSagaMiddleware  from 'redux-saga';
+
+import { rootReducer } from './reducer';
+import rootSaga from './sagas';
 
 const {
   __REDUX_DEVTOOLS_EXTENSION__
@@ -9,13 +13,15 @@ const devtools = isProduction
   ? undefined
   : __REDUX_DEVTOOLS_EXTENSION__ && __REDUX_DEVTOOLS_EXTENSION__();
 
-import { rootReducer } from './reducer';
+const sagaMiddleware = createSagaMiddleware();
 
-const store = createStore(rootReducer, devtools);
+const enhancer = compose(
+  applyMiddleware(sagaMiddleware),
+  devtools
+);
 
-export const asyncAction = (action) => {
-  const { dispatch, getState } = store;
-  return async () => action(dispatch, getState);
-};
+const store = createStore(rootReducer, enhancer);
+
+sagaMiddleware.run(rootSaga);
 
 export default store;
