@@ -3,12 +3,14 @@ import { connect } from 'react-redux';
 
 import { Redirect, Link } from 'react-router-dom';
 
-import ItemForm, { SubmitData } from '../../components/ItemForm';
+import ItemForm from '../../components/ItemForm';
 import Paper from '../../components/Paper';
 
 import { Head } from './styled';
 
 import { addItem, editItem } from '../../state/actions';
+
+import Item from '../../models/item';
 
 import { Dispatch } from 'redux'
 
@@ -16,11 +18,11 @@ interface FormProps {
   invalid: boolean,
   item: any,
   isNewItem: boolean,
-  submit: (a: SubmitData) => void
+  submit: (a: Item) => void
 }
 const Container = ({ invalid, item, submit, isNewItem }: FormProps) => {
   const [submitted, setSubmitted] = useState(false);
-  const handleSubmit = (payload: SubmitData) => {
+  const handleSubmit = (payload: Item) => {
     submit(payload);
     setSubmitted(true);
   };
@@ -51,10 +53,10 @@ const mapStateToProps = ({ items = [] }, { match: { params } }: any) => {
 
 const mapDispatchToProps = (dispatch: Dispatch, { match: { params } }: any) => {
   const index = params.id as string;
-  const _addItem = (payload: SubmitData) => dispatch(addItem(payload));
-  const _editItem = (index: string) => (payload: SubmitData) => dispatch(editItem(payload, index));
+  const _addItem = (payload: Item) => dispatch(addItem(payload));
+  const _editItem = (index: number) => (payload: Item) => dispatch(editItem(payload, index));
   return {
-    submit: index === 'new' ? _addItem : _editItem(index)
+    submit: index === 'new' ? _addItem : _editItem(Number(index))
   };
 };
 

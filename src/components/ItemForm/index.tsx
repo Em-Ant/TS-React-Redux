@@ -2,20 +2,17 @@ import React, { useState, useEffect } from 'react';
 
 import { Input, Textarea, Label, Button, Form } from './styled';
 
+import Item from '../../models/item';
+
 const validateForm = (
   name: string,
   description: string
 ): boolean => !!(name && description);
 
-export interface SubmitData {
-  name: string,
-  description: string
-}
-
 interface ItemFormProps {
   name: string,
   description: string,
-  handleSubmit: (p: SubmitData) => void
+  handleSubmit: (p: Item) => void
 }
 
 const ItemForm = ({ name, description, handleSubmit }: ItemFormProps) => {

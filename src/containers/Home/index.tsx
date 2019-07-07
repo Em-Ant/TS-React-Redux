@@ -7,7 +7,7 @@ import Item from '../../components/Item';
 import { Wrap, Buttons } from './styled';
 
 import { connect } from 'react-redux';
-import { deleteteItem, deleteAll } from '../../state/actions';
+import { deleteItem, deleteAll } from '../../state/actions';
 
 import { Dispatch } from 'redux';
 
@@ -48,7 +48,7 @@ const Home = ({ items, deleteItem, deleteAll }: HomeProps) => {
 
 const mapStateToProps = ({ items = [] }) => ({ items });
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  deleteItem: (index: number) => dispatch(deleteteItem(index)),
+  deleteItem: (index: number) => dispatch(deleteItem(index)),
   deleteAll: () => dispatch(deleteAll())
 });
 

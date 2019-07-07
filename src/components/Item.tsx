@@ -28,6 +28,7 @@ const ItemPaper = styled(Paper)`
     background-color: #ecf0f1;
     border: 1px solid #bdc3c7;
     color: #444;
+    padding: 4px 3px;
     cursor: pointer;
     transition: background-color 0.2s ease-in-out;
     &:hover {

@@ -11,22 +11,28 @@ import {
   EDIT_ITEM,
   DELETE_ITEM,
   DELETE_ALL,
+  ItemsActions,
+  AddItemAction,
+  EditItemAction,
+  DeleteItemAction
 } from './actions';
 
-const addItem = (state, { payload }) => {
+import Item from '../models/item';
+
+const addItem = (state: Item[], { payload }: AddItemAction) => {
   const newState = [...state, { ...payload, id: getUid() }];
   saveStateToStorage(newState);
   return newState;
 };
 
-const editItem = (state, { payload, index }) => {
-  const newState = [...state];
+const editItem = (state: Item[], { payload, index }: EditItemAction) => {
+  const newState: Item[] = [...state];
   if (newState[index]) newState[index] = { ...newState[index], ...payload };
   saveStateToStorage(newState);
   return newState;
 };
 
-const deleteItem = (state, { index }) => {
+const deleteItem = (state: Item[], { index }: DeleteItemAction) => {
   const newState = state.slice(0, index).concat(state.slice(index + 1));
   saveStateToStorage(newState);
   return newState;
@@ -37,7 +43,7 @@ const deleteAll = () => {
   return [];
 };
 
-const items = (state = getStateFromStorage(), action) => {
+const items = (state = getStateFromStorage(), action: ItemsActions) => {
   switch (action.type) {
   case ADD_ITEM:
     return addItem(state, action);
