@@ -13,11 +13,12 @@ const PaperWrap = styled.div`
 `;
 
 interface PaperProps {
-  children: ReactNode
+  children: ReactNode,
+  className?: string
 }
 
-const Paper = ({ children }: PaperProps) => (
-  <PaperWrap>
+const Paper = ({ className, children }: PaperProps) => (
+  <PaperWrap className={className}>
     {children}
   </PaperWrap>
 );

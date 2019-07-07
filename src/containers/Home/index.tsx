@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Link } from 'react-router-dom';
 
-import Paper from '../../components/Paper';
+import Item from '../../components/Item';
 
 import { Wrap, Buttons } from './styled';
 
@@ -26,14 +26,11 @@ const Home = ({ items, deleteItem, deleteAll }: HomeProps) => {
         <ul>
           {items.map(({ id, name }, index) => (
             <li key={id}>
-              <Paper>
-                <Link to={`/item/${index}`}>{name}</Link>
-                <button
-                  onClick={() => deleteItem(index)}
-                >
-                  delete
-                </button>
-              </Paper>
+              <Item 
+                remove={deleteItem}
+                name={name}
+                index={index}
+              />
             </li>
           ))}
         </ul>

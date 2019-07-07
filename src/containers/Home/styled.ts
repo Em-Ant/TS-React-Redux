@@ -14,31 +14,6 @@ export const Wrap = styled.div`
   li {
     list-style: none;
     padding: 0;
-    a { 
-      font-weight: bold;
-      text-decoration: none;
-      color: #2c3e50;
-      transition: color 0.2s ease-in-out;
-      &:hover {
-        color: #172c3f;
-        text-decoration: underline;
-      }
-    }
-    button {
-      position: absolute;
-      right: 8px;
-      top: 12px;
-      padding: 4px;
-      border-radius: 3px;
-      background-color: #ecf0f1;
-      border: 1px solid #bdc3c7;
-      color: #444;
-      cursor: pointer;
-      transition: background-color 0.2s ease-in-out;
-      &:hover {
-        background-color: white;
-      }
-    }
   }
   h1 {
     text-align: center;
