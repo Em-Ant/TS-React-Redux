@@ -1,5 +1,4 @@
-import React from 'react';
-import { oneOfType, node, arrayOf } from 'prop-types';
+import React, { ReactNode } from 'react';
 
 import styled from 'styled-components';
 
@@ -13,17 +12,14 @@ const PaperWrap = styled.div`
   position: relative;
 `;
 
-const Paper = ({ children }) => (
+interface PaperProps {
+  children: ReactNode
+}
+
+const Paper = ({ children }: PaperProps) => (
   <PaperWrap>
     {children}
   </PaperWrap>
 );
-
-Paper.propTypes = {
-  children: oneOfType([
-    arrayOf(node),
-    node
-  ])
-};
 
 export default Paper;

@@ -8,7 +8,8 @@ module.exports = {
         modules: isTest ? 'cjs' : false
       }
     ],
-    '@babel/preset-react'
+    '@babel/preset-react',
+    '@babel/preset-typescript',
   ],
   plugins: [
     [

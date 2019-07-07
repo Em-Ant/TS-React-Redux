@@ -1,5 +1,9 @@
 import styled, { css } from 'styled-components';
 
+export interface Invalidable {
+  invalid: boolean
+}
+
 export const Form = styled.form`
   margin: 15px auto;
   max-width: 400px ;
@@ -25,12 +29,12 @@ const inputsCommon = css`
 
 export const Input = styled.input`
   ${inputsCommon};
-  border: ${props => props.invalid ? '2px solid #ff4757' : '1px solid #bbb'};
+  border: ${(props: Invalidable) => props.invalid ? '2px solid #ff4757' : '1px solid #bbb'};
 `;
 
 export const Textarea = styled.textarea`
  ${inputsCommon};
-  border: ${props => props.invalid ? '2px solid #ff4757' : '1px solid #bbb'};
+  border: ${(props: Invalidable) => props.invalid ? '2px solid #ff4757' : '1px solid #bbb'};
   height: 160px;
   resize: none;
 `;

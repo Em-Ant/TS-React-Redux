@@ -1,19 +1,26 @@
 import React, { useState } from 'react';
-import { string, bool, shape, func } from 'prop-types';
 import { connect } from 'react-redux';
 
 import { Redirect, Link } from 'react-router-dom';
 
-import ItemForm from '../../components/ItemForm';
+import ItemForm, { SubmitData } from '../../components/ItemForm';
 import Paper from '../../components/Paper';
 
 import { Head } from './styled';
 
 import { addItem, editItem } from '../../state/actions';
 
-const Container = ({ invalid, item, submit, isNewItem }) => {
+import { Dispatch } from 'redux'
+
+interface FormProps {
+  invalid: boolean,
+  item: any,
+  isNewItem: boolean,
+  submit: (a: SubmitData) => void
+}
+const Container = ({ invalid, item, submit, isNewItem }: FormProps) => {
   const [submitted, setSubmitted] = useState(false);
-  const handleSubmit = payload => {
+  const handleSubmit = (payload: SubmitData) => {
     submit(payload);
     setSubmitted(true);
   };
@@ -30,17 +37,7 @@ const Container = ({ invalid, item, submit, isNewItem }) => {
   );
 };
 
-Container.propTypes = {
-  invalid: bool,
-  submit: func,
-  isNewItem: bool,
-  item: shape({
-    name: string,
-    description: string
-  })
-};
-
-const mapStateToProps = ({ items = [] }, { match: { params } }) => {
+const mapStateToProps = ({ items = [] }, { match: { params } }: any) => {
   const index = params.id;
   const isNewItem = index === 'new';
   const invalid = !isNewItem && !items[index];
@@ -52,10 +49,10 @@ const mapStateToProps = ({ items = [] }, { match: { params } }) => {
   };
 };
 
-const mapDispatchToProps = (dispatch, { match: { params } }) => {
-  const index = params.id;
-  const _addItem = payload => dispatch(addItem(payload));
-  const _editItem = index => payload => dispatch(editItem(payload, index));
+const mapDispatchToProps = (dispatch: Dispatch, { match: { params } }: any) => {
+  const index = params.id as string;
+  const _addItem = (payload: SubmitData) => dispatch(addItem(payload));
+  const _editItem = (index: string) => (payload: SubmitData) => dispatch(editItem(payload, index));
   return {
     submit: index === 'new' ? _addItem : _editItem(index)
   };

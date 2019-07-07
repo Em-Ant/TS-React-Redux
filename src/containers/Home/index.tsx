@@ -1,5 +1,4 @@
 import React from 'react';
-import { arrayOf, shape, string, func } from 'prop-types';
 
 import { Link } from 'react-router-dom';
 
@@ -10,7 +9,15 @@ import { Wrap, Buttons } from './styled';
 import { connect } from 'react-redux';
 import { deleteteItem, deleteAll } from '../../state/actions';
 
-const Home = ({ items, deleteItem, deleteAll }) => {
+import { Dispatch } from 'redux';
+
+
+interface HomeProps {
+  items: any[],
+  deleteItem: (i: number) => void,
+  deleteAll:  () => void
+}
+const Home = ({ items, deleteItem, deleteAll }: HomeProps) => {
   const hasItems = !!(items && items.length);
   return (
     <Wrap>
@@ -41,21 +48,10 @@ const Home = ({ items, deleteItem, deleteAll }) => {
   );
 };
 
-Home.propTypes = {
-  items: arrayOf(
-    shape({
-      name: string,
-      description: string,
-      id: string
-    })
-  ).isRequired,
-  deleteItem: func.isRequired,
-  deleteAll: func.isRequired
-};
 
 const mapStateToProps = ({ items = [] }) => ({ items });
-const mapDispatchToProps = dispatch => ({
-  deleteItem: index => dispatch(deleteteItem(index)),
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  deleteItem: (index: number) => dispatch(deleteteItem(index)),
   deleteAll: () => dispatch(deleteAll())
 });
 

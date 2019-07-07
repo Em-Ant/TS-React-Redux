@@ -1,11 +1,24 @@
 import React, { useState, useEffect } from 'react';
-import { string, func } from 'prop-types';
 
 import { Input, Textarea, Label, Button, Form } from './styled';
 
-const validateForm = (name, description) => !!(name && description);
+const validateForm = (
+  name: string,
+  description: string
+): boolean => !!(name && description);
 
-const ItemForm = ({ name, description, handleSubmit }) => {
+export interface SubmitData {
+  name: string,
+  description: string
+}
+
+interface ItemFormProps {
+  name: string,
+  description: string,
+  handleSubmit: (p: SubmitData) => void
+}
+
+const ItemForm = ({ name, description, handleSubmit }: ItemFormProps) => {
   const [_name, setName] = useState({ value: '', touched: false });
   const [_description, setDescription] = useState({
     value: '',
@@ -17,7 +30,7 @@ const ItemForm = ({ name, description, handleSubmit }) => {
       setDescription({ ..._description, value: description });
     }
   }, []);
-  const onSubmit = e => {
+  const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (validateForm(_name.value, _description.value)) {
       handleSubmit({
@@ -55,12 +68,6 @@ const ItemForm = ({ name, description, handleSubmit }) => {
       <Button type="submit">Save</Button>
     </Form>
   );
-};
-
-ItemForm.propTypes = {
-  name: string,
-  description: string,
-  handleSubmit: func
 };
 
 export default ItemForm;
