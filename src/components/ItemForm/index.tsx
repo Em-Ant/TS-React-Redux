@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import { Input, Textarea, Label, Button, Form } from './styled';
 
-import Item from '../../models/item';
+import { Item } from '../../models';
 
 const validateForm = (
   name: string,

@@ -47,7 +47,6 @@ export const Buttons = styled.div`
     ${buttonsCommon}
     background-color: #ff4757;
     color: white; 
-    border: 1px solid #ff2638;
     &:hover {
       background-color: #ff2638;
     }
@@ -56,7 +55,6 @@ export const Buttons = styled.div`
     ${buttonsCommon}
     background-color: #16a085;
     color: white;
-    border: 1px solid #1abc9c;
     &:hover {
       background-color: #1abc9c;
     }

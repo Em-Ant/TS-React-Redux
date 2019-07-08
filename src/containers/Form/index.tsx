@@ -10,7 +10,7 @@ import { Head } from './styled';
 
 import { addItem, editItem } from '../../state/actions';
 
-import Item from '../../models/item';
+import { Item } from '../../models';
 
 import { Dispatch } from 'redux'
 

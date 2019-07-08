@@ -17,7 +17,7 @@ import {
   DeleteItemAction
 } from './actions';
 
-import Item from '../models/item';
+import { Item } from '../models';
 
 const addItem = (state: Item[], { payload }: AddItemAction) => {
   const newState = [...state, { ...payload, id: getUid() }];
