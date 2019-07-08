@@ -6,20 +6,20 @@ export const DELETE_ALL = 'DELETE_ALL';
 import { Item } from '../models';
 
 export interface AddItemAction {
-  type: typeof ADD_ITEM,
-  payload: Item
+  type: typeof ADD_ITEM;
+  payload: Item;
 }
 export interface EditItemAction {
-  type: typeof EDIT_ITEM,
-  payload: Item,
-  index: number
+  type: typeof EDIT_ITEM;
+  payload: Item;
+  index: number;
 }
 export interface DeleteItemAction {
-  type: typeof DELETE_ITEM,
-  index: number
+  type: typeof DELETE_ITEM;
+  index: number;
 }
 export interface DeleteAllAction {
-  type: typeof DELETE_ALL
+  type: typeof DELETE_ALL;
 }
 
 export type ItemsActions = AddItemAction | EditItemAction | DeleteItemAction | DeleteAllAction;

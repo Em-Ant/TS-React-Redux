@@ -1,10 +1,12 @@
 
-const symbols = 'abcdef01234567890'.split('');
-export const getUid = (n:number = 5): string => [...Array(n).keys()]
-  .map(() => symbols[Math.floor(Math.random() * 16)])
+import { Item } from '../models';
+
+const symbols = 'abcdef01234567890'.split('');  
+export const getUid = (n: number = 5): string => [...Array(n).keys()]
+  .map((): string => symbols[Math.floor(Math.random() * 16)])
   .join('');
 
-export const getStateFromStorage = (): any[] => {
+export const getStateFromStorage = (): Item[] => {
   if (!window.localStorage) return [];
   try {
     return JSON.parse(window.localStorage.getItem('item_list') as string) || [];
@@ -15,7 +17,7 @@ export const getStateFromStorage = (): any[] => {
   }
 };
 
-export const saveStateToStorage = (state: any[]):void => {
+export const saveStateToStorage = (state: Item[]): void => {
   if (!window.localStorage) return;
   try {
     window.localStorage.setItem('item_list', JSON.stringify(state));
@@ -25,7 +27,7 @@ export const saveStateToStorage = (state: any[]):void => {
   }
 };
 
-export const deleteStorage = ():void => {
+export const deleteStorage = (): void => {
   if (!window.localStorage) return;
   try {
     window.localStorage.removeItem('item_list');

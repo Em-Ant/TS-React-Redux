@@ -9,10 +9,8 @@ const validateForm = (
   description: string
 ): boolean => !!(name && description);
 
-interface ItemFormProps {
-  name: string,
-  description: string,
-  handleSubmit: (p: Item) => void
+interface ItemFormProps extends Item {
+  handleSubmit: (p: Item) => void;
 }
 
 const ItemForm = ({ name, description, handleSubmit }: ItemFormProps) => {

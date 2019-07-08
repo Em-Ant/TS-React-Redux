@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 
 export interface Invalidable {
-  invalid: boolean
+  invalid: boolean;
 }
 
 export const Form = styled.form`

@@ -12,8 +12,8 @@ const PaperWrap = styled.div`
 `;
 
 interface PaperProps {
-  children: ReactNode,
-  className?: string
+  children: ReactNode;
+  className?: string;
 }
 
 const Paper = ({ className, children }: PaperProps) => (

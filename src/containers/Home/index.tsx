@@ -3,6 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import Item from '../../components/Item';
+import { Item as ItemModel } from '../../models';
 
 import { Wrap, Buttons } from './styled';
 
@@ -13,9 +14,9 @@ import { Dispatch } from 'redux';
 
 
 interface HomeProps {
-  items: any[],
-  deleteItem: (i: number) => void,
-  deleteAll:  () => void
+  items: any[];
+  deleteItem: (i: number) => void;
+  deleteAll:  () => void;
 }
 const Home = ({ items, deleteItem, deleteAll }: HomeProps) => {
   const hasItems = !!(items && items.length);
@@ -46,7 +47,7 @@ const Home = ({ items, deleteItem, deleteAll }: HomeProps) => {
 };
 
 
-const mapStateToProps = ({ items = [] }) => ({ items });
+const mapStateToProps = ({ items = [] }:  { items: ItemModel[] }) => ({ items });
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   deleteItem: (index: number) => dispatch(deleteItem(index)),
   deleteAll: () => dispatch(deleteAll())
