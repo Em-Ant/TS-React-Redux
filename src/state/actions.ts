@@ -22,7 +22,8 @@ export interface DeleteAllAction {
   type: typeof DELETE_ALL;
 }
 
-export type ItemsActions = AddItemAction | EditItemAction | DeleteItemAction | DeleteAllAction;
+export type DeleteActions = DeleteItemAction | DeleteAllAction;
+export type ItemsActions = AddItemAction | EditItemAction | DeleteActions;
 
 export const addItem = (payload: Item): AddItemAction => ({ type: ADD_ITEM, payload });
 export const editItem = (payload: Item, index: number): EditItemAction => ({ type: EDIT_ITEM, index, payload }); 

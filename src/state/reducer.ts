@@ -43,7 +43,7 @@ const deleteAll = (): Item[] => {
   return [];
 };
 
-const items = (state = getStateFromStorage(), action: ItemsActions):  Item[] => {
+const items = (state: Item[] = getStateFromStorage(), action: ItemsActions): Item[] => {
   switch (action.type) {
     case ADD_ITEM:
       return addItem(state, action);

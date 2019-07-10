@@ -14,19 +14,14 @@ import { Item } from '../../models';
 
 import { Dispatch } from 'redux';
 
-interface StateProps {
+interface FormProps {
   invalid: boolean;
   item: Item;
   isNewItem: boolean;
-}
-
-interface DispatchProps {
   submit: (a: Item) => void;
 }
 
-type FormProps = StateProps & DispatchProps;
-
-const Container = ({ invalid, item, submit, isNewItem }: FormProps): React.ReactElement => {
+const Container: React.FunctionComponent<FormProps> = ({ invalid, item, submit, isNewItem }) => {
   const [submitted, setSubmitted] = useState(false);
   const handleSubmit = (payload: Item): void => {
     submit(payload);
@@ -45,7 +40,7 @@ const Container = ({ invalid, item, submit, isNewItem }: FormProps): React.React
   );
 };
 
-const mapStateToProps = ({ items = [] }, { match: { params } }: any): StateProps => {
+const mapStateToProps = ({ items = [] }, { match: { params } }: any) => {
   const index = params.id;
   const isNewItem = index === 'new';
   const invalid = !isNewItem && !items[index];
@@ -57,11 +52,15 @@ const mapStateToProps = ({ items = [] }, { match: { params } }: any): StateProps
   };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch, { match: { params } }: any): DispatchProps => {
+
+const mapDispatchToProps = (
+  dispatch: Dispatch<AddItemAction | EditItemAction>,
+  { match: { params } }: any
+) => {
   const index = params.id as string;
-  const _addItem = (payload: Item): AddItemAction => dispatch(addItem(payload));
-  const _editItem = (index: number): (i: Item) => EditItemAction => 
-    (payload: Item): EditItemAction => dispatch(editItem(payload, index));
+  const _addItem = (payload: Item) => dispatch(addItem(payload));
+  const _editItem = (index: number): (i: Item) => EditItemAction =>
+    (payload: Item) => dispatch(editItem(payload, index));
   return {
     submit: index === 'new' ? _addItem : _editItem(Number(index))
   };

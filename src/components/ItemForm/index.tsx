@@ -13,7 +13,7 @@ interface ItemFormProps extends Item {
   handleSubmit: (p: Item) => void;
 }
 
-const ItemForm = ({ name, description, handleSubmit }: ItemFormProps) => {
+const ItemForm: React.FC<ItemFormProps> = ({ name, description, handleSubmit }) => {
   const [_name, setName] = useState({ value: '', touched: false });
   const [_description, setDescription] = useState({
     value: '',
@@ -25,7 +25,7 @@ const ItemForm = ({ name, description, handleSubmit }: ItemFormProps) => {
       setDescription({ ..._description, value: description });
     }
   }, []);
-  const onSubmit = (e: React.FormEvent) => {
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (validateForm(_name.value, _description.value)) {
       handleSubmit({
@@ -39,7 +39,7 @@ const ItemForm = ({ name, description, handleSubmit }: ItemFormProps) => {
   };
   const isNameInvalid = !_name.value && _name.touched;
   const isDescriptionInvalid = !_description.value && _description.touched;
-  
+
   return (
     <Form onSubmit={onSubmit}>
       <Label htmlFor="name">Name</Label>

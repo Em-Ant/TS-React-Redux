@@ -8,17 +8,20 @@ import { Item as ItemModel } from '../../models';
 import { Wrap, Buttons } from './styled';
 
 import { connect } from 'react-redux';
-import { deleteItem, deleteAll } from '../../state/actions';
-
 import { Dispatch } from 'redux';
 
+import {
+  deleteItem,
+  deleteAll,
+  DeleteActions
+} from '../../state/actions';
 
 interface HomeProps {
-  items: any[];
+  items: ItemModel[];
   deleteItem: (i: number) => void;
   deleteAll:  () => void;
 }
-const Home = ({ items, deleteItem, deleteAll }: HomeProps) => {
+const Home: React.FC<HomeProps> = ({ items, deleteItem, deleteAll }) => {
   const hasItems = !!(items && items.length);
   return (
     <Wrap>
@@ -27,7 +30,7 @@ const Home = ({ items, deleteItem, deleteAll }: HomeProps) => {
         <ul>
           {items.map(({ id, name }, index) => (
             <li key={id}>
-              <Item 
+              <Item
                 remove={deleteItem}
                 name={name}
                 index={index}
@@ -48,7 +51,7 @@ const Home = ({ items, deleteItem, deleteAll }: HomeProps) => {
 
 
 const mapStateToProps = ({ items = [] }:  { items: ItemModel[] }) => ({ items });
-const mapDispatchToProps = (dispatch: Dispatch) => ({
+const mapDispatchToProps = (dispatch: Dispatch<DeleteActions>) => ({
   deleteItem: (index: number) => dispatch(deleteItem(index)),
   deleteAll: () => dispatch(deleteAll())
 });
