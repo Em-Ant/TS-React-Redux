@@ -43,7 +43,7 @@ interface ItemProps {
   remove: (i: number) => void;
 }
 
-const Item:React.FC<ItemProps> = ({ name, index, remove }) => (
+const Item: React.FC<ItemProps> = ({ name, index, remove }) => (
   <ItemPaper>
     <div>
       <Link to={`/item/${index}`}>{name}</Link>
