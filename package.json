@@ -1,6 +1,6 @@
 {
-  "name": "minimal-react-boilerplate-2019",
-  "version": "1.0.0",
+  "name": "ts-react-boilerplate-2019",
+  "version": "0.0.1",
   "description": "boilerplate",
   "main": "index.js",
   "scripts": {
@@ -12,7 +12,12 @@
   "keywords": [
     "boilerplate",
     "react",
-    "babel"
+    "typescript",
+    "redux",
+    "redux-saga",
+    "styled-components",
+    "babel",
+    "webpack"
   ],
   "engines": {
     "node": "10.x"
@@ -23,25 +28,25 @@
     }
   },
   "repository": "git",
-  "author": "n30",
-  "license": "UNLICENSED",
+  "author": "EmAnt",
+  "license": "MIT",
   "dependencies": {
-    "@babel/runtime": "^7.5.1",
+    "@babel/runtime": "^7.5.4",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-redux": "^7.1.0",
     "react-router": "^5.0.1",
     "react-router-dom": "^5.0.1",
-    "redux": "^4.0.1",
+    "redux": "^4.0.4",
     "redux-saga": "^1.0.5",
     "styled-components": "^4.3.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.5.0",
+    "@babel/core": "^7.5.4",
     "@babel/plugin-proposal-class-properties": "^7.5.0",
     "@babel/plugin-proposal-decorators": "^7.4.4",
     "@babel/plugin-transform-runtime": "^7.5.0",
-    "@babel/preset-env": "^7.5.0",
+    "@babel/preset-env": "^7.5.4",
     "@babel/preset-react": "^7.0.0",
     "@babel/preset-typescript": "^7.3.3",
     "@types/jest": "^24.0.15",
@@ -50,10 +55,10 @@
     "@types/react-redux": "^7.1.1",
     "@types/react-router": "^5.0.3",
     "@types/react-router-dom": "^4.3.4",
-    "@types/styled-components": "^4.1.16",
-    "@types/webpack-env": "^1.13.9",
-    "@typescript-eslint/eslint-plugin": "^1.11.0",
-    "@typescript-eslint/parser": "^1.11.0",
+    "@types/styled-components": "^4.1.18",
+    "@types/webpack-env": "^1.14.0",
+    "@typescript-eslint/eslint-plugin": "^1.12.0",
+    "@typescript-eslint/parser": "^1.12.0",
     "babel-jest": "^24.8.0",
     "babel-loader": "^8.0.6",
     "babel-plugin-styled-components": "^1.10.6",
@@ -66,10 +71,10 @@
     "react-svg-loader": "^3.0.3",
     "react-testing-library": "^8.0.1",
     "redux-devtools-extension": "^2.13.8",
-    "typescript": "^3.5.2",
+    "typescript": "^3.5.3",
     "uglifyjs-webpack-plugin": "^2.1.3",
     "url-loader": "^2.0.1",
-    "webpack": "^4.35.2",
+    "webpack": "^4.35.3",
     "webpack-cli": "^3.3.5",
     "webpack-dev-server": "^3.7.2",
     "webpack-merge": "^4.2.1"
