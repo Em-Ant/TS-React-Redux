@@ -1,11 +1,12 @@
-# React Item List
+# React Item List - TypeScript
 
+- typescripts
 - redux
 - react-router
 - hooks
-- prop-types
-- css-modules
+- styled-components
 - webpack
 - babel
 - eslint
-- postcss
+- react-testing-library
+- jest
