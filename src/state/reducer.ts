@@ -19,20 +19,20 @@ import {
 
 import { Item } from '../models';
 
-const addItem = (state: Item[], { payload }: AddItemAction): Item[] => {
+const addItem = (state: readonly Item[], { payload }: AddItemAction): readonly Item[] => {
   const newState = [...state, { ...payload, id: getUid() }];
   saveStateToStorage(newState);
   return newState;
 };
 
-const editItem = (state: Item[], { payload, index }: EditItemAction): Item[] => {
+const editItem = (state: readonly Item[], { payload, index }: EditItemAction): readonly Item[] => {
   const newState: Item[] = [...state];
   if (newState[index]) newState[index] = { ...newState[index], ...payload };
   saveStateToStorage(newState);
   return newState;
 };
 
-const deleteItem = (state: Item[], { index }: DeleteItemAction): Item[] => {
+const deleteItem = (state: readonly Item[], { index }: DeleteItemAction): readonly Item[] => {
   const newState = state.slice(0, index).concat(state.slice(index + 1));
   saveStateToStorage(newState);
   return newState;
@@ -43,7 +43,7 @@ const deleteAll = (): Item[] => {
   return [];
 };
 
-const items = (state: Item[] = getStateFromStorage(), action: ItemsActions): Item[] => {
+const items = (state: readonly Item[] = getStateFromStorage(), action: ItemsActions): readonly Item[] => {
   switch (action.type) {
     case ADD_ITEM:
       return addItem(state, action);
