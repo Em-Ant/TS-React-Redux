@@ -1,4 +1,4 @@
-import { combineReducers } from 'redux';
+import { combineReducers, Reducer } from 'redux';
 import {
   getStateFromStorage,
   getUid,
@@ -43,7 +43,10 @@ const deleteAll = (): Item[] => {
   return [];
 };
 
-const items = (state: readonly Item[] = getStateFromStorage(), action: ItemsActions): readonly Item[] => {
+const items: Reducer<readonly Item[], ItemsActions> = (
+  state = getStateFromStorage(),
+  action
+) => {
   switch (action.type) {
     case ADD_ITEM:
       return addItem(state, action);

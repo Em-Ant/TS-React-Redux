@@ -1,12 +1,12 @@
 
 import { Item } from '../models';
 
-const symbols = 'abcdef01234567890'.split('');  
-export const getUid = (n: number = 5): string => [...Array(n).keys()]
+const symbols = 'abcdef01234567890'.split('');
+export const getUid = (n = 5): string => [...Array(n).keys()]
   .map((): string => symbols[Math.floor(Math.random() * 16)])
   .join('');
 
-export const getStateFromStorage = (): Item[] => {
+export const getStateFromStorage = (): readonly Item[] => {
   if (!window.localStorage) return [];
   try {
     return JSON.parse(window.localStorage.getItem('item_list') as string) || [];
