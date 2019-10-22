@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 
 import { Link } from 'react-router-dom';
 
@@ -10,16 +11,34 @@ import { Wrap, Buttons } from './styled';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 
-import {
-  deleteItem,
-  deleteAll,
-  DeleteActions
-} from '../../state/actions';
+import { deleteItem, deleteAll, DeleteActions } from '../../state/actions';
+
+const list = {
+  visible: {
+    opacity: 1,
+    transition: {
+      duration: 0.1,
+      when: 'beforeChildren',
+      staggerChildren: 0.1
+    }
+  },
+  hidden: {
+    opacity: 0,
+    transition: {
+      when: 'afterChildren'
+    }
+  }
+};
+
+const _item = {
+  visible: { opacity: 1, y: 0 },
+  hidden: { opacity: 0, y: -20 }
+};
 
 interface HomeProps {
   items: ItemModel[];
   deleteItem: (i: number) => void;
-  deleteAll:  () => void;
+  deleteAll: () => void;
 }
 const Home: React.FC<HomeProps> = ({ items, deleteItem, deleteAll }) => {
   const hasItems = !!(items && items.length);
@@ -27,17 +46,13 @@ const Home: React.FC<HomeProps> = ({ items, deleteItem, deleteAll }) => {
     <Wrap>
       <h1>Items</h1>
       {hasItems ? (
-        <ul>
+        <motion.ul variants={list} initial="hidden" animate="visible">
           {items.map(({ id, name }, index) => (
-            <li key={id}>
-              <Item
-                remove={deleteItem}
-                name={name}
-                index={index}
-              />
-            </li>
+            <motion.li variants={_item} key={id}>
+              <Item remove={deleteItem} name={name} index={index} />
+            </motion.li>
           ))}
-        </ul>
+        </motion.ul>
       ) : (
         <p>Nothing here yet...</p>
       )}
@@ -49,8 +64,7 @@ const Home: React.FC<HomeProps> = ({ items, deleteItem, deleteAll }) => {
   );
 };
 
-
-const mapStateToProps = ({ items = [] }:  { items: ItemModel[] }) => ({ items });
+const mapStateToProps = ({ items = [] }: { items: ItemModel[] }) => ({ items });
 const mapDispatchToProps = (dispatch: Dispatch<DeleteActions>) => ({
   deleteItem: (index: number) => dispatch(deleteItem(index)),
   deleteAll: () => dispatch(deleteAll())
