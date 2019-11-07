@@ -16,7 +16,8 @@
     "esModuleInterop": true
   },
   "include": [
-    "src",
+    "src/**/*",
+    "custom.d.ts",
     "index.tsx"
   ]
 }

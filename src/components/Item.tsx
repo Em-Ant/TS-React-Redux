@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import Paper from './Paper';
+import Delete from '../assets/delete.svg';
 
 const ItemPaper = styled(Paper)`
   display: flex;
@@ -24,15 +25,15 @@ const ItemPaper = styled(Paper)`
   }
   button {
     flex-grow: 0;
-    border-radius: 3px;
-    background-color: #ecf0f1;
-    border: 1px solid #bdc3c7;
-    color: #444;
-    padding: 4px 3px;
+    display: flex;
+    border: none;
+    padding: 0;
+    margin: 0;
     cursor: pointer;
-    transition: background-color 0.2s ease-in-out;
+    background: none;
+    transition: transform 0.1s ease-out;
     &:hover {
-      background-color: white;
+      transform: scale(1.1);
     }
   }
 `;
@@ -48,7 +49,9 @@ const Item: React.FC<ItemProps> = ({ name, index, remove }) => (
     <div>
       <Link to={`/item/${index}`}>{name}</Link>
     </div>
-    <button onClick={() => remove(index)}>delete</button>
+    <button onClick={() => remove(index)}>
+      <Delete height={18} width={18} />
+    </button>
   </ItemPaper>
 );
 
