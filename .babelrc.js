@@ -9,7 +9,7 @@ module.exports = {
       }
     ],
     '@babel/preset-react',
-    '@babel/preset-typescript',
+    '@babel/preset-typescript'
   ],
   plugins: [
     [
@@ -18,6 +18,8 @@ module.exports = {
         legacy: true
       }
     ],
+    '@babel/plugin-proposal-nullish-coalescing-operator',
+    '@babel/plugin-proposal-optional-chaining',
     '@babel/plugin-proposal-class-properties',
     '@babel/plugin-transform-runtime'
   ]
