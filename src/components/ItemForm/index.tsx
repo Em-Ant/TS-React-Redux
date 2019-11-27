@@ -1,67 +1,71 @@
-import React, { useState, useEffect } from 'react';
+import { Formik, FormikErrors } from 'formik';
+import React from 'react';
+import { Item, Mutable } from '../../models';
+import { Button, Form, Input, Label, Textarea } from './styled';
 
-import { Input, Textarea, Label, Button, Form } from './styled';
+type Errors = FormikErrors<Mutable<Item>>;
 
-import { Item } from '../../models';
-
-const validateForm = (
-  name: string,
-  description: string
-): boolean => !!(name && description);
+const validate = (values: Item): Errors => {
+  const errors: Errors = {};
+  if (!values.name) errors.name = 'required field !';
+  if (!values.description) errors.description = 'required field !';
+  return errors;
+};
 
 interface ItemFormProps extends Item {
   handleSubmit: (p: Item) => void;
 }
 
-const ItemForm: React.FC<ItemFormProps> = ({ name, description, handleSubmit }) => {
-  const [_name, setName] = useState({ value: '', touched: false });
-  const [_description, setDescription] = useState({
-    value: '',
-    touched: false
-  });
-  useEffect(() => {
-    if (name && description) {
-      setName({ ..._name, value: name });
-      setDescription({ ..._description, value: description });
-    }
-  }, []);
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (validateForm(_name.value, _description.value)) {
-      handleSubmit({
-        name: _name.value,
-        description: _description.value
-      });
-    } else {
-      setName({ ..._name, touched: true });
-      setDescription({ ..._description, touched: true });
-    }
-  };
-  const isNameInvalid = !_name.value && _name.touched;
-  const isDescriptionInvalid = !_description.value && _description.touched;
-
+const ItemForm: React.FC<ItemFormProps> = ({
+  name,
+  description,
+  handleSubmit
+}) => {
   return (
-    <Form onSubmit={onSubmit}>
-      <Label htmlFor="name">Name</Label>
-      <Input
-        invalid={isNameInvalid}
-        id="name"
-        name="name"
-        placeholder="Item Name"
-        onChange={e => setName({ value: e.target.value, touched: true })}
-        value={_name.value}
-      />
-      <Label htmlFor="name">Description</Label>
-      <Textarea
-        invalid={isDescriptionInvalid}
-        id="description"
-        name="description"
-        placeholder={'Item description'}
-        onChange={e => setDescription({ value: e.target.value, touched: true })}
-        value={_description.value}
-      />
-      <Button type="submit">Save</Button>
-    </Form>
+    <Formik
+      initialValues={{
+        name,
+        description
+      }}
+      onSubmit={handleSubmit}
+      validate={validate}
+    >
+      {props => {
+        const {
+          values,
+          touched,
+          errors,
+          handleChange,
+          handleBlur,
+          handleSubmit
+        } = props;
+        return (
+          <Form onSubmit={handleSubmit}>
+            <Label htmlFor="name">Name</Label>
+            <Input
+              invalid={!!(touched.name && errors.name)}
+              id="name"
+              name="name"
+              placeholder="Item Name"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.name}
+            />
+            <Label htmlFor="name">Description</Label>
+            <Textarea
+              invalid={!!(touched.description && errors.description)}
+              id="description"
+              name="description"
+              placeholder={'Item description'}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.description}
+            />
+            <Button type="submit">Save</Button>
+          </Form>
+        );
+      }}
+    </Formik>
   );
 };
 

@@ -5,7 +5,7 @@ interface Props {
 }
 
 export default function Playground({
-  name = 'test'
+  name = 'playground'
 }: Props): React.ReactElement {
   return <div>{name}</div>;
 }

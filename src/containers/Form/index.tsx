@@ -1,24 +1,18 @@
+import { motion } from 'framer-motion';
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { motion } from 'framer-motion';
-
-import { Redirect, Link } from 'react-router-dom';
-
+import { Link, Redirect } from 'react-router-dom';
+import { Dispatch } from 'redux';
 import ItemForm from '../../components/ItemForm';
 import Paper from '../../components/Paper';
-
-import { Head } from './styled';
-
+import { Item } from '../../models';
 import {
   addItem,
-  editItem,
   AddItemAction,
+  editItem,
   EditItemAction
 } from '../../state/actions';
-
-import { Item } from '../../models';
-
-import { Dispatch } from 'redux';
+import { Head } from './styled';
 
 interface FormProps {
   invalid: boolean;
@@ -82,7 +76,4 @@ const mapDispatchToProps = (
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Container);
+export default connect(mapStateToProps, mapDispatchToProps)(Container);

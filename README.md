@@ -1,9 +1,10 @@
 # React Item List - TypeScript
 
-- typescripts
+- typescript
 - redux
+- redux-saga
 - react-router
-- hooks
+- formik
 - styled-components
 - webpack
 - babel
