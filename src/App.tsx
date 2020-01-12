@@ -9,9 +9,15 @@ import {
 
 import { Provider } from 'react-redux';
 
-const Form = lazy(() => import('./containers/Form'));
-const Home = lazy(() => import('./containers/Home'));
-const Playground = lazy(() => import('./containers/Playground'));
+const Form = lazy(() =>
+  import(/* webpackChunkName: "form" */ './containers/Form')
+);
+const Home = lazy(() =>
+  import(/* webpackChunkName: "home" */ './containers/Home')
+);
+const Playground = lazy(() =>
+  import(/* webpackChunkName: "playground" */ './containers/Playground')
+);
 
 import Paper from './components/PaperMatch';
 
