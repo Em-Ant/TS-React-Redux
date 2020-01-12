@@ -18,6 +18,7 @@
   "include": [
     "src/**/*",
     "custom.d.ts",
-    "index.tsx"
+    "index.tsx",
+    "webpack.*.js"
   ]
 }
