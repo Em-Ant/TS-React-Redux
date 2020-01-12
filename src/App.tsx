@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 
 import {
   BrowserRouter as Router,
@@ -9,9 +9,10 @@ import {
 
 import { Provider } from 'react-redux';
 
-import Form from './containers/Form';
-import Home from './containers/Home';
-import Playground from './containers/Playground';
+const Form = lazy(() => import('./containers/Form'));
+const Home = lazy(() => import('./containers/Home'));
+const Playground = lazy(() => import('./containers/Playground'));
+
 import Paper from './components/PaperMatch';
 
 import store from './state';
@@ -22,25 +23,27 @@ function App() {
   return (
     <Provider store={store}>
       <GlobalStyle />
-      <Router>
-        <Switch>
-          <Route exact path="/home" component={Home} />
-          <Route path="/item/:id" component={Form} />
-          <Route path="/playground">
-            <Playground />
-            <Route path="/playground/test">
-              <Paper>
-                <Switch>
-                  <Route path="/playground/test/a">Content A</Route>
-                  <Route path="/playground/test/b">Content B</Route>
-                  <Redirect to="/playground" />
-                </Switch>
-              </Paper>
+      <Suspense fallback={() => <div>loading...</div>}>
+        <Router>
+          <Switch>
+            <Route exact path="/home" component={Home} />
+            <Route path="/item/:id" component={Form} />
+            <Route path="/playground">
+              <Playground />
+              <Route path="/playground/test">
+                <Paper>
+                  <Switch>
+                    <Route path="/playground/test/a">Content A</Route>
+                    <Route path="/playground/test/b">Content B</Route>
+                    <Redirect to="/playground" />
+                  </Switch>
+                </Paper>
+              </Route>
             </Route>
-          </Route>
-          <Redirect to="/home" />
-        </Switch>
-      </Router>
+            <Redirect to="/home" />
+          </Switch>
+        </Router>
+      </Suspense>
     </Provider>
   );
 }
