@@ -25,11 +25,12 @@ import store from './state';
 
 import { GlobalStyle } from './global-style';
 
+const Fallback = () => <div>loading...</div>;
 function App() {
   return (
     <Provider store={store}>
       <GlobalStyle />
-      <Suspense fallback={() => <div>loading...</div>}>
+      <Suspense fallback={<Fallback />}>
         <Router>
           <Switch>
             <Route exact path="/home" component={Home} />
