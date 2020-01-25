@@ -54,7 +54,7 @@ const mapStateToProps = ({ items = [] }, { match: { params } }: any) => {
   const index = params.id;
   const isNewItem = index === 'new';
   const invalid = !isNewItem && !items[index];
-  const item = items[index];
+  const item = items[index] ?? { name: '', description: '' };
   return {
     invalid,
     item,
