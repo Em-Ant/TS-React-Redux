@@ -36,7 +36,6 @@ function App() {
             <Route exact path="/home" component={Home} />
             <Route path="/item/:id" component={Form} />
             <Route path="/playground">
-              <Playground />
               <Route path="/playground/test">
                 <Paper>
                   <Switch>
@@ -46,6 +45,7 @@ function App() {
                   </Switch>
                 </Paper>
               </Route>
+              <Playground />
             </Route>
             <Redirect to="/home" />
           </Switch>

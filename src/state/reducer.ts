@@ -1,4 +1,4 @@
-import { combineReducers, Reducer } from 'redux';
+import { combineReducers, Reducer, AnyAction } from 'redux';
 import {
   getStateFromStorage,
   getUid,
@@ -19,20 +19,29 @@ import {
 
 import { Item } from '../models';
 
-const addItem = (state: readonly Item[], { payload }: AddItemAction): readonly Item[] => {
+const addItem = (
+  state: readonly Item[],
+  { payload }: AddItemAction
+): readonly Item[] => {
   const newState = [...state, { ...payload, id: getUid() }];
   saveStateToStorage(newState);
   return newState;
 };
 
-const editItem = (state: readonly Item[], { payload, index }: EditItemAction): readonly Item[] => {
+const editItem = (
+  state: readonly Item[],
+  { payload, index }: EditItemAction
+): readonly Item[] => {
   const newState: Item[] = [...state];
   if (newState[index]) newState[index] = { ...newState[index], ...payload };
   saveStateToStorage(newState);
   return newState;
 };
 
-const deleteItem = (state: readonly Item[], { index }: DeleteItemAction): readonly Item[] => {
+const deleteItem = (
+  state: readonly Item[],
+  { index }: DeleteItemAction
+): readonly Item[] => {
   const newState = state.slice(0, index).concat(state.slice(index + 1));
   saveStateToStorage(newState);
   return newState;
@@ -61,8 +70,19 @@ const items: Reducer<readonly Item[], ItemsActions> = (
   }
 };
 
+const count: Reducer<number, AnyAction> = (state = 0, action) => {
+  switch (action.type) {
+    case 'KEEP_ALIVE':
+      return ++state;
+    default:
+      return state;
+  }
+};
+
 const rootReducer = combineReducers({
-  items
+  items,
+  count
 });
 
+export type RootState = ReturnType<typeof rootReducer>;
 export { rootReducer };
