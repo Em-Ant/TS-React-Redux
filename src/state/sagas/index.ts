@@ -4,11 +4,9 @@ function* heartBeat() {
   while (true) {
     yield delay(5000);
     yield put({ type: 'KEEP_ALIVE' });
-  } 
+  }
 }
 
 export default function* rootSaga() {
-  yield all([
-    heartBeat(),
-  ]);
+  yield all([heartBeat()]);
 }

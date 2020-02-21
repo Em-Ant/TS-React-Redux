@@ -13,12 +13,8 @@
     "strict": true,
     "skipLibCheck": true,
     "isolatedModules": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "lib": ["ES2020"]
   },
-  "include": [
-    "src/**/*",
-    "custom.d.ts",
-    "index.tsx",
-    "webpack.*.js"
-  ]
+  "include": ["src/**/*", "custom.d.ts", "index.tsx", "webpack.*.js"]
 }
