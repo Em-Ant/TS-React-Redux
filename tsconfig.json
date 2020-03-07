@@ -14,7 +14,7 @@
     "skipLibCheck": true,
     "isolatedModules": true,
     "esModuleInterop": true,
-    "lib": ["ES2020"]
+    "lib": ["ES2020", "DOM"]
   },
   "include": ["src/**/*", "custom.d.ts", "index.tsx", "webpack.*.js"]
 }
