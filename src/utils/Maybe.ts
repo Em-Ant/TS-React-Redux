@@ -12,6 +12,9 @@ class Maybe<T> {
   static of<T>(value: T): Maybe<T> {
     return new Maybe<T>(value);
   }
+  static Just<T>(value: T): Maybe<T> {
+    return new Maybe<T>(value);
+  }
   map<U>(fn: (arg: NonNullable<T>) => U): Maybe<U | null> {
     return !Maybe.isNonNullable(this.value)
       ? Maybe.Nothing()
@@ -32,6 +35,9 @@ class Maybe<T> {
   }
   isNothing() {
     return !Maybe.isNonNullable(this.value);
+  }
+  isJust() {
+    return Maybe.isNonNullable(this.value);
   }
 }
 
