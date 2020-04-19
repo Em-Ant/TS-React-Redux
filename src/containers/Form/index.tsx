@@ -2,31 +2,21 @@ import { motion } from 'framer-motion';
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
-import { Dispatch } from 'redux';
 import ItemForm from '../../components/ItemForm';
 import Paper from '../../components/Paper';
 import { Item } from '../../models';
-import {
-  addItem,
-  AddItemAction,
-  editItem,
-  EditItemAction
-} from '../../state/actions';
+import { addItem, editItem } from '../../state/slices/items';
 import { Head } from './styled';
+import { Dispatch, RootState } from 'src/state';
 
-interface FormProps {
+interface Props {
   invalid: boolean;
   item: Item;
   isNewItem: boolean;
   submit: (a: Item) => void;
 }
 
-const Container: React.FunctionComponent<FormProps> = ({
-  invalid,
-  item,
-  submit,
-  isNewItem
-}) => {
+const Container = ({ invalid, item, submit, isNewItem }: Props) => {
   const [submitted, setSubmitted] = useState(false);
   const handleSubmit = (payload: Item): void => {
     submit(payload);
@@ -50,7 +40,10 @@ const Container: React.FunctionComponent<FormProps> = ({
   );
 };
 
-const mapStateToProps = ({ items = [] }, { match: { params } }: any) => {
+const mapStateToProps = (
+  { items = [] }: RootState,
+  { match: { params } }: any
+) => {
   const index = params.id;
   const isNewItem = index === 'new';
   const invalid = !isNewItem && !items[index];
@@ -58,21 +51,17 @@ const mapStateToProps = ({ items = [] }, { match: { params } }: any) => {
   return {
     invalid,
     item,
-    isNewItem
+    isNewItem,
   };
 };
 
-const mapDispatchToProps = (
-  dispatch: Dispatch<AddItemAction | EditItemAction>,
-  { match: { params } }: any
-) => {
+const mapDispatchToProps = (dispatch: Dispatch, { match: { params } }: any) => {
   const index = params.id as string;
   const _addItem = (payload: Item) => dispatch(addItem(payload));
-  const _editItem = (index: number): ((i: Item) => EditItemAction) => (
-    payload: Item
-  ) => dispatch(editItem(payload, index));
+  const _editItem = (index: number) => (item: Item) =>
+    dispatch(editItem({ item, index }));
   return {
-    submit: index === 'new' ? _addItem : _editItem(Number(index))
+    submit: index === 'new' ? _addItem : _editItem(Number(index)),
   };
 };
 

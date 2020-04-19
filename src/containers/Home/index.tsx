@@ -9,9 +9,9 @@ import { Item as ItemModel } from '../../models';
 import { Wrap, Buttons } from './styled';
 
 import { connect } from 'react-redux';
-import { Dispatch } from 'redux';
 
-import { deleteItem, deleteAll, DeleteActions } from '../../state/actions';
+import { deleteItem, deleteAll } from '../../state/slices/items';
+import { RootState, Dispatch } from 'src/state';
 
 const list = {
   visible: {
@@ -19,28 +19,28 @@ const list = {
     transition: {
       duration: 0.1,
       when: 'beforeChildren',
-      staggerChildren: 0.1
-    }
+      staggerChildren: 0.1,
+    },
   },
   hidden: {
     opacity: 0,
     transition: {
-      when: 'afterChildren'
-    }
-  }
+      when: 'afterChildren',
+    },
+  },
 };
 
 const _item = {
   visible: { opacity: 1, y: 0 },
-  hidden: { opacity: 0, y: -20 }
+  hidden: { opacity: 0, y: -20 },
 };
 
 interface HomeProps {
-  items: ItemModel[];
+  items: readonly ItemModel[];
   deleteItem: (i: number) => void;
   deleteAll: () => void;
 }
-const Home: React.FC<HomeProps> = ({ items, deleteItem, deleteAll }) => {
+const Home = ({ items, deleteItem, deleteAll }: HomeProps) => {
   const hasItems = !!(items && items.length);
   return (
     <Wrap>
@@ -64,13 +64,10 @@ const Home: React.FC<HomeProps> = ({ items, deleteItem, deleteAll }) => {
   );
 };
 
-const mapStateToProps = ({ items = [] }: { items: ItemModel[] }) => ({ items });
-const mapDispatchToProps = (dispatch: Dispatch<DeleteActions>) => ({
-  deleteItem: (index: number) => dispatch(deleteItem(index)),
-  deleteAll: () => dispatch(deleteAll())
+const mapStateToProps = ({ items = [] }: RootState) => ({ items });
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  deleteItem: (index: number) => dispatch(deleteItem({ index })),
+  deleteAll: () => dispatch(deleteAll()),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
