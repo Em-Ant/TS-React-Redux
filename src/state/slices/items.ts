@@ -1,19 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import {
-  getStateFromStorage,
-  getUid,
-  saveStateToStorage,
-  deleteStorage,
-} from '../helpers';
+import { getUid } from '../helpers';
 import { Item } from 'src/models';
 
 const items = createSlice({
   name: 'items',
-  initialState: getStateFromStorage(),
+  initialState: [] as readonly Item[],
   reducers: {
     addItem: (state, { payload }: PayloadAction<Item>) => {
       state.push({ ...payload, id: getUid() });
-      saveStateToStorage(state);
     },
     editItem: (
       state,
@@ -21,25 +15,25 @@ const items = createSlice({
     ) => {
       if (state[payload.index])
         state[payload.index] = { ...state[payload.index], ...payload.item };
-      saveStateToStorage(state);
     },
     deleteItem: (
       state,
       { payload: { index } }: PayloadAction<{ index: number }>
     ) => {
       const newState = state.filter((_, i) => i !== index);
-      saveStateToStorage(newState);
       return newState;
     },
     deleteAll: () => {
-      deleteStorage();
       return [];
+    },
+    setState: (_, { payload }: PayloadAction<{ items: readonly Item[] }>) => {
+      return payload.items;
     },
   },
 });
 
 const { actions, reducer } = items;
-const { addItem, editItem, deleteItem, deleteAll } = actions;
+const { addItem, editItem, deleteItem, deleteAll, setState } = actions;
 export { reducer };
-export { addItem, editItem, deleteItem, deleteAll };
+export { addItem, editItem, deleteItem, deleteAll, setState };
 export default items;

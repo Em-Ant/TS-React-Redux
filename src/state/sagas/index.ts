@@ -1,22 +1,44 @@
-import { delay, put, all } from 'redux-saga/effects';
-import Maybe from '../../utils/Maybe';
-import { set } from '../slices/test';
+import { put, all, call, select, takeLatest } from 'redux-saga/effects';
+import {
+  setState,
+  addItem,
+  editItem,
+  deleteItem,
+  deleteAll,
+} from '../slices/items';
+import {
+  getStateFromStorage,
+  saveStateToStorage,
+  deleteStorage,
+} from '../helpers';
+import { Item } from 'src/models';
+import { RootState } from '..';
 
-const getRandomPayload = () => {
-  const x = Math.random() > 0.1 ? Math.random() * 5 : null;
-  return Maybe.of(x)
-    .map((x) => (x > 2 ? x * 2 : undefined))
-    .flatMap((x) => (x < 9 ? Maybe.of(x) : Maybe.Nothing()))
-    .getOrElse('invalid');
-};
+function* loadInitialState() {
+  const items = yield call(getStateFromStorage);
+  yield put(setState({ items }));
+}
 
-function* heartBeat() {
-  while (true) {
-    yield delay(5000);
-    yield put(set(getRandomPayload()));
-  }
+function* updateLocalStorage() {
+  const items: Item[] = yield select((state: RootState) => state.items);
+  yield call(saveStateToStorage, items);
+}
+
+function* clearLocalStorage() {
+  yield call(deleteStorage);
+}
+
+function* syncUpdateStorage() {
+  yield takeLatest(
+    [addItem.toString(), editItem.toString(), deleteItem.toString()],
+    updateLocalStorage
+  );
+}
+
+function* syncClearStorage() {
+  yield takeLatest(deleteAll.toString(), clearLocalStorage);
 }
 
 export default function* rootSaga() {
-  yield all([heartBeat()]);
+  yield all([loadInitialState(), syncUpdateStorage(), syncClearStorage()]);
 }
