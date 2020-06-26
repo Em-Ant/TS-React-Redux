@@ -31,9 +31,9 @@ const ItemPaper = styled(Paper)`
     margin: 0;
     cursor: pointer;
     background: none;
-    transition: transform 0.1s ease-out;
+    transition: transform 0.1s ease-in-out;
     &:hover {
-      transform: scale(1.1);
+      transform: scale(1.2);
     }
   }
 `;

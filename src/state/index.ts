@@ -10,7 +10,7 @@ import { reducer as test } from './slices/test';
 
 import rootSaga from './sagas';
 
-const reducer = combineReducers({
+export const reducer = combineReducers({
   items,
   test,
 });

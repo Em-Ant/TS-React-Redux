@@ -22,23 +22,23 @@ export const Wrap = styled.div`
 `;
 
 const buttonsCommon = css`
-    box-sizing: border-box;
-    display: inline-block;
-    padding: 8px;
-    text-align: center;
-    min-width: 56px;
-    border: none;
-    margin: 0 8px;
-    border-radius: 4px;
-    background-color: #ecf0f1;
-    border: 1px solid #bdc3c7;
-    text-decoration: none;
-    font-size: 16px;
-    color: #444;
-    transition: background-color 0.2s ease-in-out;
-    cursor: pointer;
+  box-sizing: border-box;
+  display: inline-block;
+  padding: 8px;
+  text-align: center;
+  min-width: 56px;
+  border: none;
+  margin: 0 8px;
+  border-radius: 4px;
+  background-color: #ecf0f1;
+  border: 1px solid #bdc3c7;
+  text-decoration: none;
+  font-size: 16px;
+  color: #444;
+  height: 40px;
+  transition: background-color 0.2s ease-in-out;
+  cursor: pointer;
 `;
-
 
 export const Buttons = styled.div`
   text-align: center;
@@ -46,7 +46,7 @@ export const Buttons = styled.div`
   button {
     ${buttonsCommon}
     background-color: #ff4757;
-    color: white; 
+    color: white;
     &:hover {
       background-color: #ff2638;
     }
