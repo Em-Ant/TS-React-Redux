@@ -3,12 +3,13 @@ module.exports = {
   extends: [
     'plugin:react/recommended',
     'plugin:@typescript-eslint/recommended',
-    'plugin:jest/recommended'
+    'plugin:jest/recommended',
   ],
   parserOptions: {
-    project: './tsconfig.json'
+    project: './tsconfig.json',
   },
   rules: {
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/no-var-requires': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
@@ -16,19 +17,19 @@ module.exports = {
     semi: 2,
     '@typescript-eslint/indent': [2, 2],
     quotes: ['error', 'single'],
-    'object-curly-spacing': ['error', 'always']
+    'object-curly-spacing': ['error', 'always'],
   },
   overrides: [
     {
       files: ['**/*.tsx'],
       rules: {
-        'react/prop-types': 'off'
-      }
-    }
+        'react/prop-types': 'off',
+      },
+    },
   ],
   settings: {
     react: {
-      version: 'detect'
-    }
-  }
+      version: 'detect',
+    },
+  },
 };

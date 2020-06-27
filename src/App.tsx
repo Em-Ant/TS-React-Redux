@@ -4,7 +4,7 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Redirect
+  Redirect,
 } from 'react-router-dom';
 
 import { Provider } from 'react-redux';
@@ -26,6 +26,7 @@ import store from './state';
 import { GlobalStyle } from './global-style';
 
 const Fallback = () => <div>loading...</div>;
+
 function App() {
   return (
     <Provider store={store}>
