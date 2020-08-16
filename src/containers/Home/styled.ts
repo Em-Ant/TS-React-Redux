@@ -26,10 +26,9 @@ const buttonsCommon = css`
   display: inline-block;
   padding: 8px;
   text-align: center;
-  min-width: 56px;
+  min-width: 72px;
   border: none;
-  margin: 0 8px;
-  border-radius: 4px;
+  border-radius: 20px;
   background-color: #ecf0f1;
   border: 1px solid #bdc3c7;
   text-decoration: none;
@@ -37,6 +36,10 @@ const buttonsCommon = css`
   color: #444;
   height: 40px;
   transition: background-color 0.2s ease-in-out;
+  margin-right: 8px;
+  &:last-child {
+    margin-right: 0;
+  }
   cursor: pointer;
 `;
 
