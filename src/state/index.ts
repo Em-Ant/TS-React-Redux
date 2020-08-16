@@ -6,13 +6,11 @@ import {
 } from '@reduxjs/toolkit';
 
 import { reducer as items } from './slices/items';
-import { reducer as test } from './slices/test';
 
 import rootSaga from './sagas';
 
 export const reducer = combineReducers({
   items,
-  test,
 });
 
 const sagaMiddleware = createSagaMiddleware();
