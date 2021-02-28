@@ -6,23 +6,23 @@ module.exports = {
       '@babel/preset-env',
       {
         modules: isTest ? 'cjs' : false,
-        useBuiltIns: 'entry',
-        corejs: 3
-      }
+        useBuiltIns: 'usage',
+        corejs: 3,
+      },
     ],
     '@babel/preset-react',
-    '@babel/preset-typescript'
+    '@babel/preset-typescript',
   ],
   plugins: [
     [
       '@babel/plugin-proposal-decorators',
       {
-        legacy: true
-      }
+        legacy: true,
+      },
     ],
     '@babel/plugin-proposal-nullish-coalescing-operator',
     '@babel/plugin-proposal-optional-chaining',
     '@babel/plugin-proposal-class-properties',
-    '@babel/plugin-transform-runtime'
-  ]
+    '@babel/plugin-transform-runtime',
+  ],
 };

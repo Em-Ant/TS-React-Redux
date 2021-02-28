@@ -1,2 +1,4 @@
+defaults
+last 2 versions
+not dead
 > 5%
-ie >= 11

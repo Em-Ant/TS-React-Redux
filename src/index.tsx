@@ -1,9 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { enableES5 } from 'immer';
-import 'core-js';
-
-enableES5();
 
 import App from './App';
 
