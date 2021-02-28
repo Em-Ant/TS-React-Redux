@@ -3,4 +3,4 @@ export interface Item {
   readonly description: string;
   readonly id?: string;
 }
-export type Mutable<T> = { -readonly [P in keyof T]: T[P] };
+export type Mutable<T> = { readonly [P in keyof T]: T[P] };
