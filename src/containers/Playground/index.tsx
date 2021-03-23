@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { connect, useSelector } from 'react-redux';
 import { UserProvider, useUser } from './context';
 import { WS as Wrap } from './styled';
-import { RootState } from 'src/state/reducer';
+import Slider from '../../components/Slider';
 
 const _User = () => {
   const [user, changeUser] = useUser();
@@ -38,26 +37,7 @@ const User2 = () => {
     </Wrap>
   );
 };
-// const User2 = React.memo(_User2);
 
-const _C3 = ({ count }: { count: number }) => (
-  <Wrap>
-    <p>from reducer (connect): {count}</p>
-  </Wrap>
-);
-const Comp = connect(({ count }: RootState) => ({
-  count
-}))(_C3);
-
-const getCount = (state: RootState) => state.count;
-const Comp2 = () => {
-  const count = useSelector(getCount);
-  return (
-    <Wrap>
-      <p>from reducer (useSelector): {count}</p>
-    </Wrap>
-  );
-};
 export default function Playground() {
   const [count, setCount] = useState<number>(0);
   return (
@@ -70,14 +50,17 @@ export default function Playground() {
               <Wrap>
                 <User />
                 <User2 />
-                <Comp />
-                <Comp2 />
               </Wrap>
             </Wrap>
           </Wrap>
           <span>from local state: {count}</span>
           <button onClick={() => setCount(count + 1)}>increase count</button>
         </UserProvider>
+        <Slider
+          popoverContent="test"
+          defaultValue={32}
+          onMouseUp={console.log}
+        />
       </Wrap>
     </>
   );

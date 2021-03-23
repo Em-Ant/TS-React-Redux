@@ -9,14 +9,21 @@ import {
 
 import { Provider } from 'react-redux';
 
-const Form = lazy(() =>
-  import(/* webpackChunkName: "form" */ './containers/Form')
+const Form = lazy(
+  () => import(/* webpackChunkName: "form" */ './containers/Form')
 );
-const Home = lazy(() =>
-  import(/* webpackChunkName: "home" */ './containers/Home')
+const Home = lazy(
+  () => import(/* webpackChunkName: "home" */ './containers/Home')
 );
-const Playground = lazy(() =>
-  import(/* webpackChunkName: "playground" */ './containers/Playground')
+const Playground = lazy(
+  () => import(/* webpackChunkName: "playground" */ './containers/Playground')
+);
+
+const ComponentsTest = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "components-test" */ './containers/ComponentsTest'
+    )
 );
 
 import Paper from './components/PaperMatch';
@@ -47,6 +54,9 @@ function App() {
                 </Paper>
               </Route>
               <Playground />
+            </Route>
+            <Route path="/components-test">
+              <ComponentsTest />
             </Route>
             <Redirect to="/home" />
           </Switch>

@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 
 import Item from '../../components/Item';
+
 import { Item as ItemModel } from '../../models';
 
 import { Wrap, Buttons } from './styled';
