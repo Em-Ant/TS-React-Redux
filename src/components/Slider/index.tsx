@@ -1,7 +1,6 @@
 import React, { useState, HTMLProps, useRef, ReactNode } from 'react';
-import { Wrap, Track, Progress, Outer, PopoverWrap, Arrow } from './styled';
-import Popover from './Popover';
-import usePosition from './usePosition';
+import { Wrap, Track, Progress, Outer, Popover, Arrow } from './styled';
+import { usePosition } from './usePosition';
 
 export interface RangeInputProps
   extends Omit<HTMLProps<HTMLInputElement>, 'type'> {
@@ -17,34 +16,43 @@ const RangeInput = ({
   min = 0,
   max = 100,
   step = 1,
-  defaultValue,
-  value,
   onChange,
   className,
+  value,
+  defaultValue,
   style,
   popoverContent,
   ...props
 }: RangeInputProps) => {
-  const [localValue, setLocalValue] = useState(value ?? defaultValue ?? 0);
-  const outer = useRef<HTMLDivElement>(null);
+  const [localValue, setLocalValue] = useState(value ?? defaultValue ?? min);
+
+  const container = useRef<HTMLDivElement>(null);
+  const progress = useRef<HTMLDivElement>(null);
   const popover = useRef<HTMLDivElement>(null);
   const arrow = useRef<HTMLDivElement>(null);
 
-  const position = Math.round(((value ?? localValue) / (max - min)) * 100);
-
-  usePosition(position, { container: outer, popover, arrow });
+  usePosition([value ?? localValue, min, max], {
+    container,
+    popover,
+    arrow,
+    progress,
+  });
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    onChange && onChange(e);
-    // if the component is "controlled" - disallow local state change
-    value === undefined && setLocalValue(Number(e.target?.value));
+    if (onChange) {
+      onChange(e);
+    }
+    if (value === undefined) {
+      // the component is "controlled" - disallow local state change
+      setLocalValue(Number(e.target?.value));
+    }
   };
 
   const showPopover = !!popoverContent;
 
   return (
     <Outer className={className} style={style}>
-      <Wrap ref={outer} showPopover={showPopover}>
+      <Wrap ref={container} showPopover={showPopover}>
         {showPopover && (
           <>
             <Arrow ref={arrow} />
@@ -52,14 +60,14 @@ const RangeInput = ({
           </>
         )}
         <Track />
-        <Progress progress={position} />
+        <Progress ref={progress} />
         <input
           type="range"
           min={min}
           max={max}
           step={step}
-          onChange={handleOnChange}
           value={value ?? localValue}
+          onChange={handleOnChange}
           {...props}
         />
       </Wrap>
@@ -68,4 +76,4 @@ const RangeInput = ({
 };
 
 export default RangeInput;
-export { Track, Progress, Wrap, PopoverWrap as Popover };
+export { Track, Progress, Wrap, Popover };

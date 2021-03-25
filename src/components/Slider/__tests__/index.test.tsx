@@ -32,12 +32,14 @@ describe('Slider component', () => {
     const { container } = render(<Slider onChange={onChange} />);
 
     const input = container.querySelector('input[type="range"]');
-    input && fireEvent.change(input, { target: { value: 5 } });
+    if (input) {
+      fireEvent.change(input, { target: { value: 5 } });
+    }
 
     expect(onChange).toBeCalledTimes(1);
   });
 
-  it('should have a Progress element of the right length according to input value - 0%', () => {
+  it('should have a Progress element', () => {
     const { container } = render(<Slider value={0} />);
 
     const progressClass = Progress.styledComponentId;
@@ -46,30 +48,5 @@ describe('Slider component', () => {
     ) as HTMLElement;
 
     expect(progressElement).toBeInTheDocument();
-    expect(progressElement).toHaveStyle('width: calc(0% + 16px)');
-  });
-
-  it('should have a Progress element of the right length according to input value - 50%', () => {
-    const { container } = render(<Slider value={50} />);
-
-    const progressClass = Progress.styledComponentId;
-    const progressElement = container.querySelector(
-      `.${progressClass}`
-    ) as HTMLElement;
-
-    expect(progressElement).toBeInTheDocument();
-    expect(progressElement).toHaveStyle('width: calc(50% + 0px)');
-  });
-
-  it('should have a Progress element of the right length according to input value - 100%', () => {
-    const { container } = render(<Slider value={100} />);
-
-    const progressClass = Progress.styledComponentId;
-    const progressElement = container.querySelector(
-      `.${progressClass}`
-    ) as HTMLElement;
-
-    expect(progressElement).toBeInTheDocument();
-    expect(progressElement).toHaveStyle('width: calc(100% + -16px)');
   });
 });

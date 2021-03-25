@@ -13,6 +13,7 @@ const commonThumbStyle = css`
 
 export const Outer = styled.div`
   display: flex;
+  width: 100%;
 `;
 type WrapProps = { showPopover: boolean };
 
@@ -76,33 +77,24 @@ export const Track = styled.div`
   border-radius: 50px;
   height: 10px;
   background-color: #ddd;
+  box-shadow: inset -2px 3px 4px rgba(0, 0, 0, 0.2);
 `;
 
-type ProgressProps = { progress: number };
-
-const getProgressSize = ({ progress }: ProgressProps) => {
-  // adjust for the handle size of 32px
-  const adjustment = 16 - (32 / 100) * progress;
-  return `calc(${progress}% + ${adjustment}px);`;
-};
-
-export const Progress = styled.div<ProgressProps>`
+export const Progress = styled.div`
   position: absolute;
   left: 0;
   bottom: 11px;
-  width: ${getProgressSize};
   border-radius: 5px 0 0 5px;
   height: 10px;
   background-color: #1c818d;
 `;
 
-export const PopoverWrap = styled.div`
+export const Popover = styled.div`
   position: relative;
   min-width: 80px;
   min-height: 32px;
   max-width: 254px;
   display: flex;
-  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -113,7 +105,8 @@ export const PopoverWrap = styled.div`
   border-radius: 4px;
   padding: 8px;
   box-sizing: border-box;
-  top: -40px; /* track height + 8px distance */
+  bottom: 40px; /* track height + 8px distance */
+  z-index: 1;
 `;
 
 export const Arrow = styled.span`
@@ -121,7 +114,7 @@ export const Arrow = styled.span`
   background-color: #1c818d;
   height: 6px;
   width: 6px;
-  transform: rotate(45deg);
+  transform: translateX(-3px) rotate(45deg);
   bottom: 37px;
   z-index: 1;
 `;
