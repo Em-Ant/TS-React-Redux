@@ -8,6 +8,6 @@ export const GlobalStyle = createGlobalStyle`
     font-size: 16px;
     font-family: "Open Sans", Arial, Helvetica, sans-serif;
     color: #282828;
-    background-color: #faffb5;
+    background-color: #e6e6f2;
   }
 `;
