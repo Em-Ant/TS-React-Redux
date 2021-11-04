@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { useRouteMatch } from 'react-router-dom';
+import { useMatch } from 'react-router-dom';
 import Paper from './Paper';
 
 interface Props {
@@ -7,8 +7,8 @@ interface Props {
 }
 
 const PaperMatch: React.FC<Props> = ({ children }) => {
-  const match = useRouteMatch<{ type: string }>({
-    path: '/playground/test/:type'
+  const match = useMatch({
+    path: '/playground/test/:type',
   });
   const _type = match?.params.type ?? 'nothing';
   return (

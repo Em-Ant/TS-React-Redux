@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { UserProvider, useUser } from './context';
 import { WS as Wrap } from './styled';
 import Slider from '../../components/Slider';
+import { Outlet } from 'react-router-dom';
 
 const _User = () => {
   const [user, changeUser] = useUser();
@@ -42,6 +43,7 @@ export default function Playground() {
   const [count, setCount] = useState<number>(0);
   return (
     <>
+      <Outlet />
       <h2>Render Test</h2>
       <Wrap>
         <UserProvider>

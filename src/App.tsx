@@ -2,9 +2,10 @@ import React, { lazy, Suspense } from 'react';
 
 import {
   BrowserRouter as Router,
-  Switch,
+  Navigate,
+  Routes,
   Route,
-  Redirect,
+  Outlet,
 } from 'react-router-dom';
 
 import { Provider } from 'react-redux';
@@ -40,26 +41,31 @@ function App() {
       <GlobalStyle />
       <Suspense fallback={<Fallback />}>
         <Router>
-          <Switch>
-            <Route exact path="/home" component={Home} />
-            <Route path="/item/:id" component={Form} />
-            <Route path="/playground">
-              <Route path="/playground/test">
-                <Paper>
-                  <Switch>
-                    <Route path="/playground/test/a">Content A</Route>
-                    <Route path="/playground/test/b">Content B</Route>
-                    <Redirect to="/playground" />
-                  </Switch>
-                </Paper>
+          <Routes>
+            <Route path="/home" element={<Home />} />
+            <Route path="/item/:id" element={<Form />} />
+            <Route path="/playground" element={<Playground />}>
+              <Route
+                path="test"
+                element={
+                  <Paper>
+                    <Outlet />
+                  </Paper>
+                }
+              >
+                <Route index element={<Navigate to="/playground" replace />} />
+                <Route
+                  path="*"
+                  element={<Navigate to="/playground" replace />}
+                />
+                <Route path="a" element={<>Content A</>} />
+                <Route path="b" element={<>Content B</>} />
               </Route>
-              <Playground />
             </Route>
-            <Route path="/components-test">
-              <ComponentsTest />
-            </Route>
-            <Redirect to="/home" />
-          </Switch>
+            <Route path="/components-test" element={<ComponentsTest />} />
+            <Route index element={<Navigate to="/home" replace />} />
+            <Route path="*" element={<Navigate to="/home" replace />} />
+          </Routes>
         </Router>
       </Suspense>
     </Provider>

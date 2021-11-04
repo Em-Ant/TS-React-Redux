@@ -1,28 +1,36 @@
 import { motion } from 'framer-motion';
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
-import { Link, Redirect } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { Link, Navigate } from 'react-router-dom';
 import ItemForm from '../../components/ItemForm';
 import Paper from '../../components/Paper';
 import { Item } from '../../models';
 import { addItem, editItem } from '../../state/slices/items';
 import { Head } from './styled';
-import { Dispatch, RootState } from 'src/state';
+import { RootState } from 'src/state';
+import { useParams } from 'react-router';
 
-interface Props {
-  invalid: boolean;
-  item: Item;
-  isNewItem: boolean;
-  submit: (a: Item) => void;
-}
+const Container = () => {
+  const dispatch = useDispatch();
+  const { id: index } = useParams();
+  const items = useSelector((state: RootState) => state.items ?? []);
 
-const Container = ({ invalid, item, submit, isNewItem }: Props) => {
+  const isNewItem = index === 'new';
+  const invalid = index === undefined && !isNewItem && !items[Number(index)];
+  const item = items[Number(index)] ?? { name: '', description: '' };
+
+  const _addItem = (payload: Item) => dispatch(addItem(payload));
+  const _editItem = (index: number) => (item: Item) =>
+    dispatch(editItem({ item, index }));
+
+  const submit = index === 'new' ? _addItem : _editItem(Number(index));
+
   const [submitted, setSubmitted] = useState(false);
   const handleSubmit = (payload: Item): void => {
     submit(payload);
     setSubmitted(true);
   };
-  if (submitted || invalid) return <Redirect to="/home" />;
+  if (submitted || invalid) return <Navigate to="/home" />;
   const title = isNewItem ? 'Add Item' : 'Edit Item';
   return (
     <motion.div
@@ -40,29 +48,4 @@ const Container = ({ invalid, item, submit, isNewItem }: Props) => {
   );
 };
 
-const mapStateToProps = (
-  { items = [] }: RootState,
-  { match: { params } }: any
-) => {
-  const index = params.id;
-  const isNewItem = index === 'new';
-  const invalid = !isNewItem && !items[index];
-  const item = items[index] ?? { name: '', description: '' };
-  return {
-    invalid,
-    item,
-    isNewItem,
-  };
-};
-
-const mapDispatchToProps = (dispatch: Dispatch, { match: { params } }: any) => {
-  const index = params.id as string;
-  const _addItem = (payload: Item) => dispatch(addItem(payload));
-  const _editItem = (index: number) => (item: Item) =>
-    dispatch(editItem({ item, index }));
-  return {
-    submit: index === 'new' ? _addItem : _editItem(Number(index)),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Container);
+export default Container;
