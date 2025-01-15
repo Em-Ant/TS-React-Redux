@@ -52,7 +52,7 @@ const RangeInput = ({
 
   return (
     <Outer className={className} style={style}>
-      <Wrap ref={container} showPopover={showPopover}>
+      <Wrap ref={container} $showPopover={showPopover}>
         {showPopover && (
           <>
             <Arrow ref={arrow} />

@@ -1,46 +1,24 @@
 import React from 'react';
-import { Router } from 'react-router-dom';
-import { createMemoryHistory, History } from 'history';
-import {
-  createStore,
-  applyMiddleware,
-  Reducer,
-  AnyAction,
-  PreloadedState,
-} from 'redux';
+import { MemoryRouter } from 'react-router';
+import { Reducer, UnknownAction, configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
 import createSagaMiddleware, { Saga } from 'redux-saga';
 
 import { reducer as rootReducer, RootState } from '../state';
 
-type C = {
+interface C {
   children: React.ReactNode;
-};
-type H = History<History.PoorMansUnknown>;
+}
 
 export const provideRouter = ({
-  history,
   routes = ['/'],
 }: {
-  history?: H;
   routes?: string[];
 } = {}) => {
   return {
-    Provider: function RouterProvider({ children }: C) {
-      return (
-        <Router
-          history={
-            history ??
-            createMemoryHistory({
-              initialEntries: routes,
-            })
-          }
-        >
-          {children}
-        </Router>
-      );
+    Provider: ({ children }: C) => {
+      return <MemoryRouter initialEntries={routes}>{children}</MemoryRouter>;
     },
-    history,
   };
 };
 
@@ -49,17 +27,24 @@ export function provideGenericStore<T>({
   initState,
   rootSaga,
 }: {
-  reducer: Reducer<T, AnyAction>;
-  initState?: PreloadedState<T>;
-  rootSaga?: Saga<any>;
+  reducer: Reducer<T, UnknownAction>;
+  initState?: T;
+  rootSaga?: Saga;
 }) {
   const sagaMW = rootSaga && createSagaMiddleware();
-  const enhancer = sagaMW && applyMiddleware(sagaMW);
-  const store = createStore(reducer, initState, enhancer);
-  rootSaga && sagaMW?.run(rootSaga);
+  const store = configureStore({
+    reducer,
+    middleware: (getDefault) => {
+      const mw = getDefault({ thunk: false });
+      if (sagaMW) mw.concat(sagaMW);
+      return mw;
+    },
+    preloadedState: initState,
+  });
+  if (rootSaga && sagaMW) sagaMW.run(rootSaga);
 
   return {
-    Provider: function StoreProvider({ children }: C) {
+    Provider: ({ children }: C) => {
       return <Provider store={store}>{children}</Provider>;
     },
     store,
@@ -70,8 +55,8 @@ export const provideStore = ({
   initState,
   rootSaga,
 }: {
-  initState?: PreloadedState<RootState>;
-  rootSaga?: Saga<any>;
+  initState?: RootState;
+  rootSaga?: Saga;
 }) =>
   provideGenericStore({
     reducer: rootReducer,
@@ -85,13 +70,13 @@ const defaultProvider = ({
   rootSaga,
 }: {
   routes?: string[];
-  initState?: PreloadedState<RootState>;
-  rootSaga?: Saga<any>;
+  initState?: RootState;
+  rootSaga?: Saga;
 } = {}) => {
   const { Provider, store } = provideStore({ initState, rootSaga });
-  const { Provider: Router, history } = provideRouter({ routes });
+  const { Provider: Router } = provideRouter({ routes });
   return {
-    Provider: function DefaultProvider({ children }: C) {
+    Provider: ({ children }: C) => {
       return (
         <Provider>
           <Router>{children}</Router>
@@ -99,7 +84,6 @@ const defaultProvider = ({
       );
     },
     store,
-    history,
   };
 };
 

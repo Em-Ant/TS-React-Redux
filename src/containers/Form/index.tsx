@@ -1,10 +1,10 @@
 import { motion } from 'framer-motion';
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Link, Navigate } from 'react-router-dom';
+import { Link, Navigate } from 'react-router';
 import ItemForm from '../../components/ItemForm';
 import Paper from '../../components/Paper';
-import { Item } from '../../models';
+import type { Item } from '../../types/Item';
 import { addItem, editItem } from '../../state/slices/items';
 import { Head } from './styled';
 import { RootState } from 'src/state';

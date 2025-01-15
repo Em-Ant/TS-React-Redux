@@ -1,14 +1,28 @@
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+import * as path from 'path';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
+import ReactRefreshTypeScript from 'react-refresh-typescript';
 
-module.exports = {
+const isDevelopment = process.env.NODE_ENV !== 'production';
+
+export default {
   entry: './src/index.tsx',
   module: {
     rules: [
       {
-        test: /\.(js|jsx|ts|tsx)$/,
+        test: /\.tsx?$/,
         exclude: /node_modules/,
-        use: ['babel-loader'],
+        use: {
+          loader: 'ts-loader',
+          options: {
+            getCustomTransformers: () => ({
+              before: [isDevelopment && ReactRefreshTypeScript()].filter(
+                Boolean,
+              ),
+            }),
+            transpileOnly: isDevelopment,
+          },
+        },
       },
       {
         test: /\.svg$/,
@@ -26,16 +40,17 @@ module.exports = {
   },
   output: {
     clean: true,
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve('./dist'),
     publicPath: '/',
     filename: '[name].bundle.js',
     chunkFilename: '[name].bundle.js',
   },
   plugins: [
+    isDevelopment && new ReactRefreshWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: 'src/index.html',
       inject: 'body',
       hash: true,
     }),
-  ],
+  ].filter(Boolean),
 };

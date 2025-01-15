@@ -1,6 +1,6 @@
 import { RefObject, useLayoutEffect } from 'react';
 
-/* eslint-disable no-param-reassign */
+ 
 
 const clamp = (val: number, [min, max]: [number, number]): number => {
   if (max < min) {
@@ -17,16 +17,16 @@ const clamp = (val: number, [min, max]: [number, number]): number => {
 
 type Values = [v: number, min: number, max: number];
 interface Refs {
-  container: RefObject<HTMLDivElement>;
-  progress: RefObject<HTMLDivElement>;
-  popover: RefObject<HTMLDivElement>;
-  arrow: RefObject<HTMLDivElement>;
+  container: RefObject<HTMLDivElement | null>;
+  progress: RefObject<HTMLDivElement | null>;
+  popover: RefObject<HTMLDivElement | null>;
+  arrow: RefObject<HTMLDivElement | null>;
 }
 
 const setDynamicStyles = (
   [value, min, max]: Values,
   { container, popover, arrow, progress }: Refs,
-  handleSize = 32
+  handleSize = 32,
 ) => {
   if (!container.current) {
     return;
@@ -59,10 +59,8 @@ const setDynamicStyles = (
     arrow.current.style.left = ` ${arrowPosition}px`;
 
     // check if popover out if borders - measure it again
-    const {
-      left: popoverLeft,
-      right: popoverRight,
-    } = popover.current.getBoundingClientRect();
+    const { left: popoverLeft, right: popoverRight } =
+      popover.current.getBoundingClientRect();
 
     // check and adjust the right side
     if (popoverRight > containerRight) {

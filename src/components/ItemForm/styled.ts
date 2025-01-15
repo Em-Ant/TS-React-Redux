@@ -6,7 +6,7 @@ export interface Invalidable {
 
 export const Form = styled.form`
   margin: 15px auto;
-  max-width: 400px ;
+  max-width: 400px;
   display: flex;
   flex-direction: column;
 `;
@@ -27,14 +27,20 @@ const inputsCommon = css`
   font-family: Arial, Helvetica, sans-serif;
 `;
 
-export const Input = styled.input`
+export const Input = styled.input<
+  React.HTMLAttributes<HTMLInputElement> & Invalidable
+>`
   ${inputsCommon};
-  border: ${(props: Invalidable) => props.invalid ? '2px solid #ff4757' : '1px solid #bbb'};
+  border: ${(props) =>
+    props.invalid ? '2px solid #ff4757' : '1px solid #bbb'};
 `;
 
-export const Textarea = styled.textarea`
- ${inputsCommon};
-  border: ${(props: Invalidable) => props.invalid ? '2px solid #ff4757' : '1px solid #bbb'};
+export const Textarea = styled.textarea<
+  React.HTMLAttributes<HTMLTextAreaElement> & Invalidable
+>`
+  ${inputsCommon};
+  border: ${(props) =>
+    props.invalid ? '2px solid #ff4757' : '1px solid #bbb'};
   height: 160px;
   resize: none;
 `;

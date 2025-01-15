@@ -1,9 +1,10 @@
 import { Formik, FormikErrors } from 'formik';
 import React from 'react';
-import { Item, Mutable } from '../../models';
+import { Item } from '../../types/Item';
+
 import { Button, Form, Input, Label, Textarea } from './styled';
 
-type Errors = FormikErrors<Mutable<Item>>;
+type Errors = FormikErrors<Item>;
 
 const validate = (values: Item): Errors => {
   const errors: Errors = {};
@@ -19,25 +20,25 @@ interface ItemFormProps extends Item {
 const ItemForm: React.FC<ItemFormProps> = ({
   name,
   description,
-  handleSubmit
+  handleSubmit,
 }) => {
   return (
     <Formik
       initialValues={{
         name,
-        description
+        description,
       }}
       onSubmit={handleSubmit}
       validate={validate}
     >
-      {props => {
+      {(props) => {
         const {
           values,
           touched,
           errors,
           handleChange,
           handleBlur,
-          handleSubmit
+          handleSubmit,
         } = props;
         return (
           <Form onSubmit={handleSubmit}>

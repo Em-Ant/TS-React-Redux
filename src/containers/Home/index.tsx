@@ -1,18 +1,17 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 import Item from '../../components/Item';
 
-import { Item as ItemModel } from '../../models';
+import { Item as ItemModel } from '../../types/Item';
 
 import { Wrap, Buttons } from './styled';
 
 import { connect } from 'react-redux';
 
 import { deleteItem, deleteAll } from '../../state/slices/items';
-import { RootState, Dispatch } from 'src/state';
+import { RootState, AppDispatch } from 'src/state';
 
 const list = {
   visible: {
@@ -42,7 +41,7 @@ interface HomeProps {
   deleteAll: () => void;
 }
 const Home = ({ items, deleteItem, deleteAll }: HomeProps) => {
-  const hasItems = !!(items && items.length);
+  const hasItems = !!items?.length;
   return (
     <Wrap>
       <h1>Items</h1>
@@ -66,7 +65,7 @@ const Home = ({ items, deleteItem, deleteAll }: HomeProps) => {
 };
 
 const mapStateToProps = ({ items = [] }: RootState) => ({ items });
-const mapDispatchToProps = (dispatch: Dispatch) => ({
+const mapDispatchToProps = (dispatch: AppDispatch) => ({
   deleteItem: (index: number) => dispatch(deleteItem({ index })),
   deleteAll: () => dispatch(deleteAll()),
 });

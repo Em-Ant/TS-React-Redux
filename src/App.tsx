@@ -6,25 +6,25 @@ import {
   Routes,
   Route,
   Outlet,
-} from 'react-router-dom';
+} from 'react-router';
 
 import { Provider } from 'react-redux';
 
 const Form = lazy(
-  () => import(/* webpackChunkName: "form" */ './containers/Form')
+  () => import(/* webpackChunkName: "form" */ './containers/Form'),
 );
 const Home = lazy(
-  () => import(/* webpackChunkName: "home" */ './containers/Home')
+  () => import(/* webpackChunkName: "home" */ './containers/Home'),
 );
 const Playground = lazy(
-  () => import(/* webpackChunkName: "playground" */ './containers/Playground')
+  () => import(/* webpackChunkName: "playground" */ './containers/Playground'),
 );
 
 const ComponentsTest = lazy(
   () =>
     import(
       /* webpackChunkName: "components-test" */ './containers/ComponentsTest'
-    )
+    ),
 );
 
 import Paper from './components/PaperMatch';

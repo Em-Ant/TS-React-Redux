@@ -44,8 +44,8 @@ describe('Slider component', () => {
 
     const progressClass = Progress.styledComponentId;
     const progressElement = container.querySelector(
-      `.${progressClass}`
-    ) as HTMLElement;
+      `.${progressClass}`,
+    )!;
 
     expect(progressElement).toBeInTheDocument();
   });

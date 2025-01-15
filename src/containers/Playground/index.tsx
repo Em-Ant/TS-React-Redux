@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { UserProvider, useUser } from './context';
 import { WS as Wrap } from './styled';
 import Slider from '../../components/Slider';
-import { Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router';
 
-const _User = () => {
+const User_ = () => {
   const [user, changeUser] = useUser();
   return (
     <Wrap>
@@ -21,7 +21,7 @@ const _User = () => {
   );
 };
 
-const User = React.memo(_User);
+const User = React.memo(User_);
 
 const User2 = () => {
   const [user] = useUser();

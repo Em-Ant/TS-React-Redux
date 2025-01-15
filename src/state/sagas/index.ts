@@ -11,16 +11,16 @@ import {
   saveStateToStorage,
   deleteStorage,
 } from '../helpers';
-import { Item } from 'src/models';
+import type { Item } from '../../types/Item';
 import { RootState } from '..';
 
 function* loadInitialState() {
-  const items = yield call(getStateFromStorage);
+  const items = (yield call(getStateFromStorage)) as Item[];
   yield put(setState({ items }));
 }
 
 function* updateLocalStorage() {
-  const items: Item[] = yield select((state: RootState) => state.items);
+  const items = (yield select((state: RootState) => state.items)) as Item[];
   yield call(saveStateToStorage, items);
 }
 
@@ -31,7 +31,7 @@ function* clearLocalStorage() {
 function* syncUpdateStorage() {
   yield takeLatest(
     [addItem.toString(), editItem.toString(), deleteItem.toString()],
-    updateLocalStorage
+    updateLocalStorage,
   );
 }
 

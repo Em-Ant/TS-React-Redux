@@ -7,7 +7,6 @@
 - formik
 - styled-components
 - webpack
-- babel
 - eslint
 - react-testing-library
 - jest

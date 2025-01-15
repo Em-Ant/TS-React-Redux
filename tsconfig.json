@@ -6,15 +6,14 @@
     },
     "target": "esnext",
     "module": "esnext",
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "moduleResolution": "node",
     "allowJs": true,
-    "noEmit": true,
     "strict": true,
     "skipLibCheck": true,
     "isolatedModules": true,
     "esModuleInterop": true,
     "lib": ["ES2020", "DOM"]
   },
-  "include": ["src/**/*", "custom.d.ts", "index.tsx", "webpack.*.js"]
+  "include": ["src/**/*", "index.tsx"]
 }

@@ -7,7 +7,9 @@ const commonThumbStyle = css`
   border-radius: 50%;
   border: 7px solid #fff;
   background: #1c818d;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.14), 0px 6px 8px rgba(0, 0, 0, 0.12);
+  box-shadow:
+    0px 4px 6px rgba(0, 0, 0, 0.14),
+    0px 6px 8px rgba(0, 0, 0, 0.12);
   cursor: pointer;
 `;
 
@@ -15,11 +17,11 @@ export const Outer = styled.div`
   display: flex;
   width: 100%;
 `;
-type WrapProps = { showPopover: boolean };
+interface WrapProps { $showPopover: boolean }
 
-const getWrapTopMargin = ({ showPopover }: WrapProps) =>
+const getWrapTopMargin = ({ $showPopover }: WrapProps) =>
   // compensate for popover relative placement
-  showPopover ? '40px' : '0';
+  $showPopover ? '40px' : '0';
 
 export const Wrap = styled.div<WrapProps>`
   position: relative;

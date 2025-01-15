@@ -1,9 +1,5 @@
 import createSagaMiddleware from 'redux-saga';
-import {
-  configureStore,
-  combineReducers,
-  getDefaultMiddleware,
-} from '@reduxjs/toolkit';
+import { configureStore, combineReducers } from '@reduxjs/toolkit';
 
 import { reducer as items } from './slices/items';
 
@@ -15,16 +11,16 @@ export const reducer = combineReducers({
 
 const sagaMiddleware = createSagaMiddleware();
 
-const defaultMW = getDefaultMiddleware({
-  thunk: false,
-});
-
 const store = configureStore({
   reducer,
-  middleware: [...defaultMW, sagaMiddleware],
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      thunk: false,
+    }).concat(sagaMiddleware),
 });
 
 sagaMiddleware.run(rootSaga);
 
 export type RootState = ReturnType<typeof reducer>;
+export type AppDispatch = typeof store.dispatch;
 export default store;
